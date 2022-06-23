@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Category;
+use App\Models\Food;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $category = Category::find(2);
+    Food::find(1)->categories()->save($category);
+    // return view('welcome');
 });
 
 Route::get('/dashboard', function () {

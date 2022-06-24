@@ -1,7 +1,8 @@
 <?php
 
-use App\Models\Category;
-use App\Models\Food;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ResturantController;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,13 +17,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $category = Category::find(2);
-    Food::find(1)->categories()->save($category);
-    // return view('welcome');
+    return view('welcome');
 });
 
+Route::resource('/category', CategoryController::class);
+Route::resource('/resturant', ResturantController::class);
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    if (Gate::allows('admin')) {
+        return view('Admin.dashboardAdmin');
+    }
+    return view('seller.dashboardSeller');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

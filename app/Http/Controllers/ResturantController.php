@@ -25,7 +25,7 @@ class ResturantController extends Controller
      */
     public function create()
     {
-        //
+        return view('seller.CreateResturant');
     }
 
     /**

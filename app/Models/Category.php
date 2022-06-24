@@ -9,6 +9,10 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name', 'type'
+    ];
+
     public function foods()
     {
         return $this->morphedByMany(Food::class, 'categorizable');

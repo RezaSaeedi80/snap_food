@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFoodRequest;
 use App\Http\Requests\UpdateFoodRequest;
+use App\Models\Category;
 use App\Models\Food;
 
 class FoodController extends Controller
@@ -36,7 +37,9 @@ class FoodController extends Controller
      */
     public function store(StoreFoodRequest $request)
     {
-        //
+        // $category = Category::find($request->category_id);
+        // $food = Food::create($request->all());
+        // $food->categories()->save($category);
     }
 
     /**

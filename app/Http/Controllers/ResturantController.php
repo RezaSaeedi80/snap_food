@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreResturantRequest;
 use App\Http\Requests\UpdateResturantRequest;
+use App\Models\Category;
 use App\Models\Resturant;
 
 class ResturantController extends Controller
@@ -25,7 +26,8 @@ class ResturantController extends Controller
      */
     public function create()
     {
-        return view('seller.CreateResturant');
+        $categories = Category::where('type', 'resturant')->get();
+        return view('seller.CreateResturant', compact('categories'));
     }
 
     /**

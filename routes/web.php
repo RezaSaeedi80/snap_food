@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ResturantController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+//     $category = Category::find(5);
+
+// App\Post::find(1)->categories()->save($category);
+//     Category::find
     return view('welcome');
 });
 

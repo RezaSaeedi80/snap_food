@@ -6,6 +6,7 @@ use App\Http\Requests\StoreResturantRequest;
 use App\Http\Requests\UpdateResturantRequest;
 use App\Models\Category;
 use App\Models\Resturant;
+use Illuminate\Http\Request;
 
 class ResturantController extends Controller
 {
@@ -38,7 +39,18 @@ class ResturantController extends Controller
      */
     public function store(StoreResturantRequest $request)
     {
-        //
+        $category = Category::find($request->category);
+        $resturant = Resturant::create([
+            'name' => $request->name,
+            'user_id' => auth()->id(),
+            'category' => $request->category,
+            'phone' => $request->phone,
+            'account_number' => $request->account_number,
+            'lng' => $request->lng,
+            'lat' => $request->lat
+        ]);
+        $resturant->categories()->save($category);
+        return back();
     }
 
     /**

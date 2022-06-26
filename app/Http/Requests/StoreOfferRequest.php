@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\IranianPhoneRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreResturantRequest extends FormRequest
+class StoreOfferRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +24,7 @@ class StoreResturantRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:4|max:30',
-            'phone' => ['required', new IranianPhoneRule],
-            'category' => 'required',
-            'account_number' => 'required',
-            'lng' => 'required',
-            'lat' => 'required',
+            
         ];
     }
 }

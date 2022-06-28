@@ -55,7 +55,9 @@
             @enderror
             <div class="modal w-[460px]" id="ex1">
                 <div class="p-6 h-[300px] relative bg-white border-gray-200">
-                    <x-mapbox id="mapId" :draggable="true" class="w-[600px] absolute left-0 bottom-0" />
+                    <x-mapbox id="mapId" :draggable="true"
+                    :center="['long' => 8, 'lat' => 10]"
+                    class="w-[600px] absolute left-0 bottom-0" />
                 </div>
             </div>
             <input type="hidden" name="lng" id="lng" value="">

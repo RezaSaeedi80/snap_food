@@ -15,8 +15,8 @@ class FoodSeeder extends Seeder
      */
     public function run()
     {
-        Food::create([
-            'name' => 'lazania'
-        ]);
+        // Food::create([
+        //     'name' => 'lazania'
+        // ]);
     }
 }

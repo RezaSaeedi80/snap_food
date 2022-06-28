@@ -23,4 +23,9 @@ class Resturant extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function food()
+    {
+        return $this->hasMany(Food::class);
+    }
 }

@@ -28,7 +28,7 @@ class ResturantController extends Controller
     public function create()
     {
         $categories = Category::where('type', 'resturant')->get();
-        return view('seller.CreateResturant', compact('categories'));
+        return view('seller.Resturant.CreateResturant', compact('categories'));
     }
 
     /**
@@ -61,7 +61,8 @@ class ResturantController extends Controller
      */
     public function show(Resturant $resturant)
     {
-        //
+        session(['resturant' => $resturant]);
+        return view('seller.Food.Food');
     }
 
     /**

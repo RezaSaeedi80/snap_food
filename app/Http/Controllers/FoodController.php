@@ -6,8 +6,14 @@ use App\Http\Requests\StoreFoodRequest;
 use App\Http\Requests\UpdateFoodRequest;
 use App\Models\Category;
 use App\Models\Food;
+use App\Models\Offer;
+use App\Models\Resturant;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class FoodController extends Controller
+use function PHPSTORM_META\type;
+
+class cFoodController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +22,8 @@ class FoodController extends Controller
      */
     public function index()
     {
-        //
+        $foods = auth()->user()->foods()->where('resturant_id', session('resturant')->id)->get()->load('categories');
+        return view('seller.Food.ShowFoods', compact('foods'));
     }
 
     /**
@@ -26,7 +33,9 @@ class FoodController extends Controller
      */
     public function create()
     {
-        //
+        $resturants = auth()->user()->load('resturants')->resturants;
+        $categories = Category::where('type', 'food')->get();
+        return view('seller.Food.CreateFood', compact('categories', 'resturants'));
     }
 
     /**
@@ -37,9 +46,14 @@ class FoodController extends Controller
      */
     public function store(StoreFoodRequest $request)
     {
-        // $category = Category::find($request->category_id);
-        // $food = Food::create($request->all());
-        // $food->categories()->save($category);
+        $category = Category::find($request->category);
+        $food = Food::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'materials' => $request->materials,
+            'resturant_id' => session('resturant')->id
+        ]);
+        $food->categories()->save($category);
     }
 
     /**
@@ -50,7 +64,9 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
-        //
+        $categories = Category::where('type', 'food')->get();
+        $offers = Offer::all();
+        return view('seller.Food.FoodProfile', compact('food', 'categories', 'offers'));
     }
 
     /**
@@ -71,9 +87,10 @@ class FoodController extends Controller
      * @param  \App\Models\Food  $food
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFoodRequest $request, Food $food)
+    public function update(Request $request, Food $food)
     {
-        //
+        $path = $request->file('image')->store('images', 's3');
+        return $path;
     }
 
     /**

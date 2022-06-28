@@ -30,10 +30,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
-        Gate::define('admin', function (User $user) {
-            return $user->is_admin;
-        });
-
         $this->routes(function () {
             Route::middleware('api')
                 ->prefix('api')

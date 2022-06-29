@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateResturantRequest;
 use App\Models\Category;
 use App\Models\Resturant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ResturantController extends Controller
 {
@@ -17,7 +18,38 @@ class ResturantController extends Controller
      */
     public function index()
     {
-        //
+        $resturants = auth()->user()->load('resturants')->resturants->load('categories');
+        return view('seller.dashboardSeller', compact('resturants'));
+    }
+
+    /**
+     * Display a listing of the resource trashed.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashedIndex()
+    {
+        $resturants = auth()->user()->resturants()->onlyTrashed()->get()->load('categories');
+        return view('seller.Resturant.Trashed', compact('resturants'));
+    }
+
+
+    /**
+     * restore a trashed resturant
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function restore(Resturant $resturant)
+    {
+        $resturant->restore();
+        return back();
+    }
+
+    public function forceDelete(Resturant $resturant)
+    {
+        $resturant->forceDelete();
+        return back();
     }
 
     /**
@@ -50,6 +82,9 @@ class ResturantController extends Controller
             'lat' => $request->lat
         ]);
         $resturant->categories()->save($category);
+        $resturant->image()->create([
+            'path' => 'Default/default.jpg'
+        ]);
         return back();
     }
 
@@ -61,8 +96,7 @@ class ResturantController extends Controller
      */
     public function show(Resturant $resturant)
     {
-        session(['resturant' => $resturant]);
-        return view('seller.Food.Food');
+        return view('seller.Food.Food', compact('resturant'));
     }
 
     /**
@@ -73,7 +107,8 @@ class ResturantController extends Controller
      */
     public function edit(Resturant $resturant)
     {
-        //
+        $categories = Category::where('type', 'resturant')->get();
+        return view('seller.Resturant.EditResturant', compact('resturant', 'categories'));
     }
 
     /**
@@ -85,7 +120,30 @@ class ResturantController extends Controller
      */
     public function update(UpdateResturantRequest $request, Resturant $resturant)
     {
-        //
+        if ($resturant->image->path !== 'Default/default.jpg' && $request->file('image')) {
+            unlink($resturant->image->path);
+        }
+        $path = $request->file('image')->store('public');
+        $file_name = pathinfo($path, PATHINFO_BASENAME);
+
+        $resturant->update([
+            'name' => $request->name,
+            'user_id' => auth()->id(),
+            'category' => $request->category,
+            'phone' => $request->phone,
+            'account_number' => $request->account_number,
+            'lng' => $request->lng,
+            'lat' => $request->lat
+        ]);
+        $resturant->categories()->update(
+            [
+                'category_id' => $request->category
+            ]
+        );
+        $resturant->image()->update([
+            'path' => 'storage/' . $file_name
+        ]);
+        return redirect()->route('resturant.show', $resturant);
     }
 
     /**
@@ -96,6 +154,7 @@ class ResturantController extends Controller
      */
     public function destroy(Resturant $resturant)
     {
-        //
+        $resturant->delete();
+        return redirect()->route('dashboard');
     }
 }

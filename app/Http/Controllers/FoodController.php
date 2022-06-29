@@ -13,17 +13,18 @@ use Illuminate\Support\Facades\Storage;
 
 use function PHPSTORM_META\type;
 
-class cFoodController extends Controller
+class FoodController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Resturant $resturant)
     {
-        $foods = auth()->user()->foods()->where('resturant_id', session('resturant')->id)->get()->load('categories');
-        return view('seller.Food.ShowFoods', compact('foods'));
+        $foods = $resturant->food()->get()->load('categories');
+        // $foods = auth()->user()->foods()->where('resturant_id', $resturant->id)->get()->load('categories');
+        return view('seller.Food.ShowFoods', compact('foods', 'resturant'));
     }
 
     /**
@@ -31,11 +32,10 @@ class cFoodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Resturant $resturant)
     {
-        $resturants = auth()->user()->load('resturants')->resturants;
         $categories = Category::where('type', 'food')->get();
-        return view('seller.Food.CreateFood', compact('categories', 'resturants'));
+        return view('seller.Food.CreateFood', compact('categories', 'resturant'));
     }
 
     /**
@@ -44,14 +44,14 @@ class cFoodController extends Controller
      * @param  \App\Http\Requests\StoreFoodRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreFoodRequest $request)
+    public function store(StoreFoodRequest $request, Resturant $resturant)
     {
         $category = Category::find($request->category);
         $food = Food::create([
             'name' => $request->name,
             'price' => $request->price,
             'materials' => $request->materials,
-            'resturant_id' => session('resturant')->id
+            'resturant_id' => $resturant->id
         ]);
         $food->categories()->save($category);
     }
@@ -62,11 +62,11 @@ class cFoodController extends Controller
      * @param  \App\Models\Food  $food
      * @return \Illuminate\Http\Response
      */
-    public function show(Food $food)
+    public function show(Resturant $resturant, Food $food)
     {
         $categories = Category::where('type', 'food')->get();
         $offers = Offer::all();
-        return view('seller.Food.FoodProfile', compact('food', 'categories', 'offers'));
+        return view('seller.Food.FoodProfile', compact('food', 'categories', 'offers', 'resturant'));
     }
 
     /**

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('account_number');
             $table->string('lng');
             $table->string('lat');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

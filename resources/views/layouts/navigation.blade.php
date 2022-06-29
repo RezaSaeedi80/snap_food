@@ -34,6 +34,11 @@
                             {{ __('Create Resturant') }}
                         </x-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('resturant.trashed')" :active="request()->routeIs('resturant.trashed')">
+                            {{ __('Trash') }}
+                        </x-nav-link>
+                    </div>
                 @endcannot
             </div>
 

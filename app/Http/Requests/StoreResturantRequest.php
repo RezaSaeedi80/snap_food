@@ -33,4 +33,11 @@ class StoreResturantRequest extends FormRequest
             'lat' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'lng.required' => 'The location is required.'
+        ];
+    }
 }

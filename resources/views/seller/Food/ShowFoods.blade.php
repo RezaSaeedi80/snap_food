@@ -37,7 +37,7 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a href="{{ route('food.show', $food) }}" class="py-1 px-5 m-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700">Show</a>
+                                    <a href="{{ route('food.show', [$resturant, $food]) }}" class="py-1 px-5 m-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700">Show</a>
                                 </td>
                             </tr>
                         @endforeach

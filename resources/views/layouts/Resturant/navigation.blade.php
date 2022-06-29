@@ -16,21 +16,6 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('resturant.show', session('resturant'))" :active="request()->routeIs('resturant.show')">
-                        {{ __('Resturant') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('food.create')" :active="request()->routeIs('food.create')">
-                        {{ __('Create Food') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('food.index')" :active="request()->routeIs('food.index')">
-                        {{ __('Food') }}
-                    </x-nav-link>
-                </div> --}}
 
             </div>
 

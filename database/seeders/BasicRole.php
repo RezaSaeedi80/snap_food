@@ -18,6 +18,7 @@ class BasicRole extends Seeder
     {
         $admin = Role::create(['name' => 'admin']);
         $seller = Role::create(['name' => 'seller']);
+        $seller = Role::create(['name' => 'buyer']);
 
         $create_resturant = Permission::create(['name' => 'create resturant']);
 

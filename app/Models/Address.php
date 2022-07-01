@@ -10,7 +10,7 @@ class Address extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'address', 'latitude', 'longitude'
+        'title', 'address', 'latitude', 'longitude', 'current_address'
     ];
 
     public function addressable()

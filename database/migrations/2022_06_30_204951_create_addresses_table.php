@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('latitude');
             $table->string('longitude');
             $table->morphs('addressable');
+            $table->boolean('current_address')->default(false);
             $table->timestamps();
         });
     }

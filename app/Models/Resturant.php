@@ -39,4 +39,9 @@ class Resturant extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    public function addresses()
+    {
+        return $this->morphMany(Address::class, 'addressable');
+    }
 }

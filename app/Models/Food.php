@@ -10,7 +10,7 @@ class Food extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'price', 'resturant_id', 'materials'
+        'name', 'price', 'resturant_id', 'materials', 'offer_id'
     ];
 
     public function categories()
@@ -23,8 +23,13 @@ class Food extends Model
         return $this->belongsTo(Resturant::class);
     }
 
-    public function images()
+    public function image()
     {
-        return $this->morphMany(Image::class, 'imageable');
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function offer()
+    {
+        return $this->belongsTo(Offer::class);
     }
 }

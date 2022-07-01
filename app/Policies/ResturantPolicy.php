@@ -77,7 +77,7 @@ class ResturantPolicy
      */
     public function restore(User $user, Resturant $resturant)
     {
-        //
+        return $user === auth()->user() && $resturant->deleted_at != null;
     }
 
     /**

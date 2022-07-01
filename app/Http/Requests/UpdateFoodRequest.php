@@ -13,7 +13,7 @@ class UpdateFoodRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->route('resturant')->user_id === auth()->id();
     }
 
     /**
@@ -24,7 +24,10 @@ class UpdateFoodRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'price' => 'required',
+            'category' => 'required',
+            'image' => 'required|image',
         ];
     }
 }

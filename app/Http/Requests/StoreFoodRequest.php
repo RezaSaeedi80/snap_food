@@ -13,7 +13,7 @@ class StoreFoodRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->route('resturant')->user_id === auth()->id();
     }
 
     /**

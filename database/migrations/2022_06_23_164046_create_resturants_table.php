@@ -20,8 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->integer('account_number');
-            $table->string('lng');
-            $table->string('lat');
+            $table->boolean('is_open')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

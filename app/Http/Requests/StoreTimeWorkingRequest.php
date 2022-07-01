@@ -25,6 +25,7 @@ class StoreTimeWorkingRequest extends FormRequest
     public function rules()
     {
         return [
+            'resturant_id' => ['required', 'unique:time_workings'],
             'saturday_end' => ['nullable', new WorkingTimeRule($this->saturday_start)],
             'sunday_end' => ['nullable', new WorkingTimeRule($this->sunday_start)],
             'monday_end' => ['nullable', new WorkingTimeRule($this->monday_start)],
@@ -34,4 +35,11 @@ class StoreTimeWorkingRequest extends FormRequest
             'friday_end' => ['nullable', new WorkingTimeRule($this->friday_start)],
         ];
     }
+
+    // public function messages()
+    // {
+    //     return [
+    //         'resturant_id.required' => ''
+    //     ];
+    // }
 }

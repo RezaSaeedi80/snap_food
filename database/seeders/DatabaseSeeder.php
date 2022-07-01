@@ -18,15 +18,18 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        \App\Models\User::factory()->create([
+        $this->call([
+            FoodSeeder::class,
+            BasicRole::class,
+            Permision::class
+        ]);
+        $admin = \App\Models\User::factory()->create([
             'name' => 'Reza',
             'email' => 'mohammadrezasaeedi8295@gmail.com',
-            'is_admin' => true,
-            'role' => 'seller',
             'password' => Hash::make('password')
         ]);
+        $admin->assignRole('admin');
 
-        $this->call(FoodSeeder::class);
 
         Category::create([
             'name' => 'pizza',
@@ -44,7 +47,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        \App\Models\User::factory(10)->create();
+        // \App\Models\User::factory(10)->create();
 
     }
 }

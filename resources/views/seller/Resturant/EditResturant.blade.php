@@ -2,11 +2,11 @@
 
 
 @section('main')
-    <div class="block p-6 mx-auto mt-[17vh] rounded-lg shadow-zinc-900/70 shadow-xl bg-white max-w-md">
+    <div class="block p-6 mx-auto mt-[6vh] rounded-lg shadow-zinc-900/70 shadow-xl bg-white max-w-md">
         <form method="POST" action="{{ route('resturant.update', $resturant) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div class="form-group mb-6">
+            <div class="form-group mb-3">
                 <input type="text" name="name"
                     class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     value="{{ $resturant->name }}"
@@ -16,7 +16,7 @@
                 @enderror
 
             </div>
-            <div class="form-group mb-6">
+            <div class="form-group mb-3">
                 <input type="text" name="phone"
                     class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     value="{{ $resturant->phone }}"
@@ -25,15 +25,31 @@
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="form-group mb-6">
+            <div class="form-group mb-3">
+                <input type="text" name="address_title"
+                    class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    placeholder="Address Title">
+                @error('address_title')
+                    <p class="text-red-500 text-xs italic" >{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <input type="text" name="address"
+                    class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    placeholder="Address">
+                @error('address')
+                    <p class="text-red-500 text-xs italic" >{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
                 <input type="file" name="image"
                     class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     >
-                @error('phone')
+                @error('image')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="form-group mb-6">
+            <div class="form-group mb-3">
                 <div class="mb-3">
                     <select name="category"
                         @selected(true)

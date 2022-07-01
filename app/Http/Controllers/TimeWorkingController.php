@@ -10,6 +10,12 @@ use App\Rules\WorkingTimeRule;
 
 class TimeWorkingController extends Controller
 {
+
+    public function __construct()
+    {
+        // $this->authorizeResource(TimeWorking::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -39,7 +45,7 @@ class TimeWorkingController extends Controller
     public function store(StoreTimeWorkingRequest $request, Resturant $resturant)
     {
         TimeWorking::create([
-            'resturant_id' => $resturant->id,
+            'resturant_id' => $request->resturant->id,
             'saturday' => $request->saturday_start . '-' . $request->saturday_end,
             'sunday' => $request->sunday_start . '-' . $request->sunday_end,
             'monday' => $request->monday_start . '-' . $request->monday_end,

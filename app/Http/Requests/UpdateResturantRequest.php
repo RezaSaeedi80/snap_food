@@ -31,6 +31,8 @@ class UpdateResturantRequest extends FormRequest
             'account_number' => 'required',
             'lng' => 'required',
             'lat' => 'required',
+            'address_title' => 'required|min:5|max:20',
+            'address' => 'required|min:5|max:30'
         ];
     }
 

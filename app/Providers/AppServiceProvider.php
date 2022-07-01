@@ -25,8 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Gate::define('create food', function (User $user) {
-            return ($user->resturants == null) ? false : true;
-        });
+
     }
 }

@@ -12,10 +12,12 @@
             <div class="italic"> Name : {{ $resturant->name }} </div>
             <div class="italic"> Phone : {{ $resturant->phone }} </div>
             <div class="italic"> Account Number : {{ $resturant->account_number }} </div>
-            <div class="italic"> Latitude : {{ $resturant->lat }} </div>
-            <div class="italic"> Longitude : {{ $resturant->lng }} </div>
+            <div class="italic"> Address Title : {{ $resturant->addresses->first()->title }} </div>
+            <div class="italic"> Address : {{ $resturant->addresses->first()->address }} </div>
+            <div class="italic"> Latitude : {{ $resturant->addresses->first()->latitude }} </div>
+            <div class="italic"> Longitude : {{ $resturant->addresses->first()->longitude }} </div>
 
-            @can('show')
+            @can('view', $resturant->time_working)
                 <div class="italic "> times : <a class="text-blue-400 hover:text-blue-700" href="{{ route('time.show', [$resturant, $resturant->time_working]) }}"> show </a> </div>
             @endcan
         </div>

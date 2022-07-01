@@ -78,8 +78,12 @@ class ResturantController extends Controller
             'category' => $request->category,
             'phone' => $request->phone,
             'account_number' => $request->account_number,
-            'lng' => $request->lng,
-            'lat' => $request->lat
+        ]);
+        $resturant->addresses()->create([
+            'title' => $request->address_title,
+            'address' => $request->address,
+            'latitude' => $request->lat,
+            'longitude' => $request->lng
         ]);
         $resturant->categories()->save($category);
         $resturant->image()->create([
@@ -132,8 +136,12 @@ class ResturantController extends Controller
             'category' => $request->category,
             'phone' => $request->phone,
             'account_number' => $request->account_number,
-            'lng' => $request->lng,
-            'lat' => $request->lat
+        ]);
+        $resturant->addresses()->update([
+            'title' => $request->address_title,
+            'address' => $request->address,
+            'latitude' => $request->lat,
+            'longitude' => $request->lng
         ]);
         $resturant->categories()->update(
             [

@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                @can('admin')
+                @role('admin')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
                             {{ __('Category') }}
@@ -27,8 +27,8 @@
                             {{ __('Offer') }}
                         </x-nav-link>
                     </div>
-                @endcan
-                @cannot('admin')
+                @endrole
+                @role('seller')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('resturant.create')" :active="request()->routeIs('resturant.create')">
                             {{ __('Create Resturant') }}
@@ -39,7 +39,7 @@
                             {{ __('Trash') }}
                         </x-nav-link>
                     </div>
-                @endcannot
+                @endrole
             </div>
 
             <!-- Settings Dropdown -->

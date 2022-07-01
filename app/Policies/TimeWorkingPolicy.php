@@ -18,7 +18,7 @@ class TimeWorkingPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -28,9 +28,9 @@ class TimeWorkingPolicy
      * @param  \App\Models\TimeWorking  $timeWorking
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, TimeWorking $timeWorking)
+    public function view(User $user, TimeWorking $time)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +41,7 @@ class TimeWorkingPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -51,9 +51,9 @@ class TimeWorkingPolicy
      * @param  \App\Models\TimeWorking  $timeWorking
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, TimeWorking $timeWorking)
+    public function update(User $user, TimeWorking $time)
     {
-        //
+        return ($time) ? true : false;
     }
 
     /**
@@ -65,7 +65,7 @@ class TimeWorkingPolicy
      */
     public function delete(User $user, TimeWorking $timeWorking)
     {
-        //
+        return false;
     }
 
     /**

@@ -39,8 +39,7 @@ Route::resource('/resturant', ResturantController::class);
 Route::resource('/offer', OfferController::class);
 
 Route::get('/dashboard', function () {
-    session()->forget('resturant');
-    if (Gate::allows('admin')) {
+    if (auth()->user()->hasRole('admin')) {
         return view('Admin.dashboardAdmin');
     }
     return redirect()->route('resturant.index');

@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Food;
+use App\Models\Resturant;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -18,7 +19,7 @@ class FoodPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user === auth()->user();
     }
 
     /**
@@ -30,7 +31,7 @@ class FoodPolicy
      */
     public function view(User $user, Food $food)
     {
-        //
+        return $user === auth()->user();
     }
 
     /**
@@ -41,7 +42,7 @@ class FoodPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user === auth()->user();
     }
 
     /**
@@ -53,7 +54,7 @@ class FoodPolicy
      */
     public function update(User $user, Food $food)
     {
-        //
+        return $user === auth()->user();
     }
 
     /**
@@ -65,7 +66,7 @@ class FoodPolicy
      */
     public function delete(User $user, Food $food)
     {
-        //
+        return $user === auth()->user();
     }
 
     /**

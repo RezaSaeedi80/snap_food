@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Offer;
-use App\Models\Resturant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('food', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('price');
-            $table->foreignIdFor(Offer::class)->nullable();
-            $table->foreignIdFor(Resturant::class);
-            $table->string('materials')->nullable();
+            $table->string('title');
+            $table->string('address');
+            $table->string('latitude');
+            $table->string('longitude');
+            $table->morphs('addressable');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('food');
+        Schema::dropIfExists('addresses');
     }
 };

@@ -15,6 +15,12 @@ use function PHPSTORM_META\type;
 
 class FoodController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Food::class);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +29,6 @@ class FoodController extends Controller
     public function index(Resturant $resturant)
     {
         $foods = $resturant->food()->get()->load('categories');
-        // $foods = auth()->user()->foods()->where('resturant_id', $resturant->id)->get()->load('categories');
         return view('seller.Food.ShowFoods', compact('foods', 'resturant'));
     }
 
@@ -34,6 +39,9 @@ class FoodController extends Controller
      */
     public function create(Resturant $resturant)
     {
+        if ($resturant->user_id !== auth()->id()) {
+            abort(403);
+        }
         $categories = Category::where('type', 'food')->get();
         return view('seller.Food.CreateFood', compact('categories', 'resturant'));
     }
@@ -54,6 +62,10 @@ class FoodController extends Controller
             'resturant_id' => $resturant->id
         ]);
         $food->categories()->save($category);
+        $food->image()->create([
+            'path' => 'Default/default.jpg'
+        ]);
+        return redirect()->route('food.index', $resturant);
     }
 
     /**
@@ -64,9 +76,10 @@ class FoodController extends Controller
      */
     public function show(Resturant $resturant, Food $food)
     {
-        $categories = Category::where('type', 'food')->get();
-        $offers = Offer::all();
-        return view('seller.Food.FoodProfile', compact('food', 'categories', 'offers', 'resturant'));
+        if ($food->resturant_id !== $resturant->id || $resturant->user_id !== auth()->id()) {
+            abort(403);
+        }
+        return view('seller.Food.FoodProfile', compact('food', 'resturant'));
     }
 
     /**
@@ -75,9 +88,11 @@ class FoodController extends Controller
      * @param  \App\Models\Food  $food
      * @return \Illuminate\Http\Response
      */
-    public function edit(Food $food)
+    public function edit(Resturant $resturant, Food $food)
     {
-        //
+        $offers = Offer::all();
+        $categories = Category::where('type', 'food')->get();
+        return view('seller.Food.editFood', compact('offers', 'categories', 'food', 'resturant'));
     }
 
     /**
@@ -87,10 +102,28 @@ class FoodController extends Controller
      * @param  \App\Models\Food  $food
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Food $food)
+    public function update(UpdateFoodRequest $request, Resturant $resturant, Food $food)
     {
-        $path = $request->file('image')->store('images', 's3');
-        return $path;
+        if ($food->image->path !== 'Default/default.jpg' && $request->file('image')) {
+            unlink($food->image->path);
+        }
+        $path = $request->file('image')->store('public');
+        $file_name = pathinfo($path, PATHINFO_BASENAME);
+
+        $food->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'resturant_id' => $resturant->id,
+            'materials' => $request->materials,
+            'offer_id' => $request->offer
+        ]);
+        $food->categories()->update([
+                'category_id' => $request->category
+        ]);
+        $food->image()->update([
+            'path' => 'storage/' . $file_name
+        ]);
+        return redirect()->route('food.index', $resturant);
     }
 
     /**
@@ -99,8 +132,9 @@ class FoodController extends Controller
      * @param  \App\Models\Food  $food
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Food $food)
+    public function destroy(Resturant $resturant, Food $food)
     {
-        //
+        $food->delete();
+        return back();
     }
 }

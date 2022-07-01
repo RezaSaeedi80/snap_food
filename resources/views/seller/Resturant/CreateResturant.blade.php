@@ -6,10 +6,10 @@
     </x-slot>
 
 
-    <div class="block p-6 mx-auto mt-[17vh] rounded-lg shadow-zinc-900/70 shadow-xl bg-white max-w-md">
-        <form method="POST" action="{{ route('resturant.store') }}">
+    <div class="block p-6 mx-auto mt-[6vh] rounded-lg shadow-zinc-900/70 shadow-xl bg-white max-w-md">
+        <form class="overflow-auto" method="POST" action="{{ route('resturant.store') }}">
             @csrf
-            <div class="form-group mb-6">
+            <div class="form-group mb-3">
                 <input type="text" name="name"
                     class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="Name">
@@ -18,7 +18,7 @@
                 @enderror
 
             </div>
-            <div class="form-group mb-6">
+            <div class="form-group mb-3">
                 <input type="text" name="phone"
                     class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="Phone">
@@ -26,7 +26,23 @@
                     <p class="text-red-500 text-xs italic" >{{ $message }}</p>
                 @enderror
             </div>
-            <div class="form-group mb-6">
+            <div class="form-group mb-3">
+                <input type="text" name="address_title"
+                    class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    placeholder="Address Title">
+                @error('address_title')
+                    <p class="text-red-500 text-xs italic" >{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <input type="text" name="address"
+                    class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    placeholder="Address">
+                @error('address')
+                    <p class="text-red-500 text-xs italic" >{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
                 <div class="mb-3">
                     <select name="category"
                         class="form-select mb-3 appearance-none block w-full py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">

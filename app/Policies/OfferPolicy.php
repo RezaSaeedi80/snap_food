@@ -18,7 +18,7 @@ class OfferPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        // return $user->hasRole('admin');
     }
 
     /**
@@ -30,7 +30,7 @@ class OfferPolicy
      */
     public function view(User $user, Offer $offer)
     {
-        //
+        // return $user->hasRole('admin');
     }
 
     /**

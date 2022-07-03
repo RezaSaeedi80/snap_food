@@ -18,7 +18,7 @@ class TimeWorkingPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return $user->id === auth()->id();
     }
 
     /**
@@ -28,9 +28,9 @@ class TimeWorkingPolicy
      * @param  \App\Models\TimeWorking  $timeWorking
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, TimeWorking $time)
+    public function view(User $user, TimeWorking $timeWorking)
     {
-        return true;
+        return $user->id === $timeWorking->resturant->user_id;
     }
 
     /**
@@ -41,7 +41,7 @@ class TimeWorkingPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->id === auth()->id();
     }
 
     /**
@@ -51,9 +51,9 @@ class TimeWorkingPolicy
      * @param  \App\Models\TimeWorking  $timeWorking
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, TimeWorking $time)
+    public function update(User $user, TimeWorking $timeWorking)
     {
-        return ($time) ? true : false;
+        return $user->id === $timeWorking->resturant->user_id;
     }
 
     /**
@@ -65,7 +65,7 @@ class TimeWorkingPolicy
      */
     public function delete(User $user, TimeWorking $timeWorking)
     {
-        return false;
+        return $user->id === $timeWorking->resturant->user_id;
     }
 
     /**

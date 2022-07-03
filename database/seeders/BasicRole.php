@@ -18,10 +18,13 @@ class BasicRole extends Seeder
     {
         $admin = Role::create(['name' => 'admin']);
         $seller = Role::create(['name' => 'seller']);
-        $seller = Role::create(['name' => 'buyer']);
+        $buyer = Role::create(['name' => 'buyer']);
 
         $create_resturant = Permission::create(['name' => 'create resturant']);
+        $set_working_time = Permission::create(['name' => 'set working time']);
+        $edit_working_time = Permission::create(['name' => 'edit working time']);
 
         $seller->givePermissionTo($create_resturant);
+        $seller->givePermissionTo($set_working_time);
     }
 }

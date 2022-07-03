@@ -18,7 +18,7 @@ class ResturantPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->id === auth()->user()->id;
     }
 
     /**
@@ -30,7 +30,7 @@ class ResturantPolicy
      */
     public function view(User $user, Resturant $resturant)
     {
-        //
+        return $user->id === $resturant->user_id;
     }
 
     /**
@@ -41,7 +41,7 @@ class ResturantPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->id === auth()->id();
     }
 
     /**
@@ -53,7 +53,7 @@ class ResturantPolicy
      */
     public function update(User $user, Resturant $resturant)
     {
-        //
+        return $user->id === $resturant->user_id;
     }
 
     /**
@@ -65,7 +65,7 @@ class ResturantPolicy
      */
     public function delete(User $user, Resturant $resturant)
     {
-        //
+        return $user->id === $resturant->user_id;
     }
 
     /**
@@ -77,7 +77,7 @@ class ResturantPolicy
      */
     public function restore(User $user, Resturant $resturant)
     {
-        return $user === auth()->user() && $resturant->deleted_at != null;
+        return $user->id === $resturant->user_id;
     }
 
     /**
@@ -89,6 +89,6 @@ class ResturantPolicy
      */
     public function forceDelete(User $user, Resturant $resturant)
     {
-        //
+        return $user->id === $resturant->user_id;
     }
 }

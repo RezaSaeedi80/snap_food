@@ -28,6 +28,7 @@ class OfferController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -49,7 +50,7 @@ class OfferController extends Controller
             ]);
         }
 
-        Offer::create($request->all());
+        Offer::create($request->validated());
         return response()->json([
             'error' => '',
             'success' => 'Category added successfully'

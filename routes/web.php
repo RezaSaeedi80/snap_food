@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Resturant;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Contracts\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,23 +27,34 @@ Route::get('/', function () {
 });
 
 
-Route::resource('/category', CategoryController::class);
+Route::middleware(['auth'])->group(function () {
 
-Route::prefix('resturant/{resturant}/')->group(function () {
-    Route::resource('food', FoodController::class);
-    Route::resource('time', TimeWorkingController::class);
+    // admin routes
+    Route::middleware('admin')->group(function () {
+        Route::resource('/offer', OfferController::class);
+        Route::resource('/category', CategoryController::class);
+    });
+
+    //seller routes
+    Route::middleware('seller')->group(function () {
+        Route::prefix('resturant/{resturant}/')->group(function () {
+            Route::resource('food', FoodController::class);
+            Route::resource('timeWorking', TimeWorkingController::class);
+        });
+        Route::get('/resturant/trash', [ResturantController::class, 'trashedIndex'])->name('resturant.trashed');
+        Route::put('/resturant/{resturant}/restore', [ResturantController::class, 'restore'])->name('resturant.restore')->withTrashed();
+        Route::delete('/resturant/{resturant}/forceDelete', [ResturantController::class, 'forceDelete'])->name('resturant.forceDelete')->withTrashed();
+        Route::resource('/resturant', ResturantController::class);
+    });
+
+    //public
+    Route::get('/dashboard', function () {
+        if (auth()->user()->hasRole('admin')) {
+            return view('Admin.dashboardAdmin');
+        }
+        return redirect()->route('resturant.index');
+    })->name('dashboard');
 });
-Route::get('/resturant/trash', [ResturantController::class, 'trashedIndex'])->name('resturant.trashed');
-Route::put('/resturant/{resturant}/restore', [ResturantController::class, 'restore'])->name('resturant.restore')->withTrashed();
-Route::delete('/resturant/{resturant}/forceDelete', [ResturantController::class, 'forceDelete'])->name('resturant.forceDelete')->withTrashed();
-Route::resource('/resturant', ResturantController::class);
-Route::resource('/offer', OfferController::class);
 
-Route::get('/dashboard', function () {
-    if (auth()->user()->hasRole('admin')) {
-        return view('Admin.dashboardAdmin');
-    }
-    return redirect()->route('resturant.index');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

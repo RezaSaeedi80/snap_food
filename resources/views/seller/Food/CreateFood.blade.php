@@ -1,6 +1,9 @@
-@extends('layouts.Resturant.resturantApp')
+<x-app-resturant>
 
-@section('main')
+    <x-slot name="resturant">
+        {{ $resturant->id }}
+    </x-slot>
+
     <div class="block p-6 mx-auto mt-[7vh] rounded-lg shadow-zinc-900/70 shadow-xl bg-white max-w-md">
         <form method="POST" action="{{ route('food.store', $resturant) }}">
             @csrf
@@ -54,5 +57,4 @@
                 class="w-full px-6 mt-3 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Create</button>
         </form>
     </div>
-@endsection
-
+</x-app-resturant>

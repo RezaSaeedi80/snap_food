@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Hash;
 
 class ResturantController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->authorizeResource(Resturant::class);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -1,7 +1,9 @@
-@extends('layouts.Resturant.resturantApp')
+<x-app-resturant>
 
+    <x-slot name="resturant">
+        {{ $resturant->id }}
+    </x-slot>
 
-@section('main')
     <!--Container-->
     <div class="container w-full md:w-4/5 xl:w-3/5  mx-auto mt-[4vh]">
         <!--Card-->
@@ -39,9 +41,9 @@
                             </td>
                             <td>
                                 <a href="{{ route('food.show', [$resturant, $food]) }}">
-                                    <svg class="h-5 w-5 text-green-500" width="24" height="24" viewBox="0 0 24 24"
-                                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                                        stroke-linejoin="round">
+                                    <svg class="h-5 w-5 text-green-500" width="24" height="24"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" />
                                         <path
                                             d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
@@ -52,7 +54,8 @@
                             <td>
                                 <a href="{{ route('food.edit', [$resturant, $food]) }}">
                                     <svg class="h-5 w-5 text-blue-500" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" />
                                         <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
                                         <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
@@ -61,13 +64,14 @@
                                 </a>
                             </td>
                             <td>
-                                <form action="{{ route('food.destroy',[$resturant, $food]) }}" class="w-fit" method="post">
+                                <form action="{{ route('food.destroy', [$resturant, $food]) }}" class="w-fit"
+                                    method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="w-fit flex items-center">
-                                        <svg class="h-5 w-5 text-red-500" width="24" height="24" viewBox="0 0 24 24"
-                                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                                            stroke-linejoin="round">
+                                        <svg class="h-5 w-5 text-red-500" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" />
                                             <line x1="4" y1="7" x2="20" y2="7" />
                                             <line x1="10" y1="11" x2="10" y2="17" />
@@ -109,4 +113,4 @@
                 .responsive.recalc();
         });
     </script>
-@endsection
+</x-app-resturant>

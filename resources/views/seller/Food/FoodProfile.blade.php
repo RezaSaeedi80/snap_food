@@ -1,8 +1,8 @@
-@extends('layouts.Resturant.resturantApp')
+<x-app-resturant>
+    <x-slot name="resturant">
+        {{ $resturant->id }}
+    </x-slot>
 
-
-
-@section('main')
     <div class="relative w-[700px] h-[500px] bg-white rounded-lg mx-auto mt-[10vh]">
         <div class="absolute top-[-60px] left-[-60px] w-fit rounded-full">
             <img src="{{ asset($food->image->path) }}" alt="" class="w-[180px] rounded-full">
@@ -17,4 +17,5 @@
             @endempty
         </div>
     </div>
-@endsection
+
+</x-app-resturant>

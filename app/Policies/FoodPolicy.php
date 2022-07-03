@@ -19,7 +19,7 @@ class FoodPolicy
      */
     public function viewAny(User $user)
     {
-        return $user === auth()->user();
+        return $user->id === auth()->id();
     }
 
     /**
@@ -31,7 +31,7 @@ class FoodPolicy
      */
     public function view(User $user, Food $food)
     {
-        return $user === auth()->user();
+        return $user->id === $food->resturant->user_id;
     }
 
     /**
@@ -54,7 +54,7 @@ class FoodPolicy
      */
     public function update(User $user, Food $food)
     {
-        return $user === auth()->user();
+        return $user->id === $food->resturant->user_id;
     }
 
     /**
@@ -66,7 +66,7 @@ class FoodPolicy
      */
     public function delete(User $user, Food $food)
     {
-        return $user === auth()->user();
+        return $user->id === $food->resturant->user_id;
     }
 
     /**
@@ -78,7 +78,7 @@ class FoodPolicy
      */
     public function restore(User $user, Food $food)
     {
-        //
+        return $user->id === $food->resturant->user_id;
     }
 
     /**
@@ -90,6 +90,6 @@ class FoodPolicy
      */
     public function forceDelete(User $user, Food $food)
     {
-        //
+        return $user->id === $food->resturant->user_id;
     }
 }

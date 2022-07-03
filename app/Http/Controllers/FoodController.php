@@ -28,6 +28,9 @@ class FoodController extends Controller
      */
     public function index(Resturant $resturant)
     {
+        if (auth()->id() !== $resturant->user_id) {
+            abort(403);
+        }
         $foods = $resturant->food()->get()->load('categories');
         return view('seller.Food.ShowFoods', compact('foods', 'resturant'));
     }
@@ -76,9 +79,6 @@ class FoodController extends Controller
      */
     public function show(Resturant $resturant, Food $food)
     {
-        if ($food->resturant_id !== $resturant->id || $resturant->user_id !== auth()->id()) {
-            abort(403);
-        }
         return view('seller.Food.FoodProfile', compact('food', 'resturant'));
     }
 

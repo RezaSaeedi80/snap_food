@@ -1,10 +1,12 @@
-@extends('layouts.Resturant.resturantApp')
+<x-app-resturant>
 
+    <x-slot name="resturant">
+        {{ $resturant->id }}
+    </x-slot>
 
-@section('main')
     <div class="flex flex-col gap-5 w-[500px] mx-auto mt-[15vh] bg-white rounded-lg">
         <div class="text-center">
-            <span>You can <a href="{{ route('time.edit', [$time_working->resturant->id, $time_working]) }}" class="text-blue-400 hover:text-blue-600 underline">edit</a> your working time</span>
+            <span>You can <a href="{{ route('timeWorking.edit', [$time_working->resturant->id, $time_working]) }}" class="text-blue-400 hover:text-blue-600 underline">edit</a> your working time</span>
         </div>
         <div class="relative overflow-x-auto rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -104,4 +106,4 @@
         </div>
 
     </div>
-@endsection
+</x-app-resturant>

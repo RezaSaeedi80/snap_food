@@ -1,7 +1,9 @@
-@extends('layouts.Resturant.resturantApp')
+<x-app-resturant>
 
+    <x-slot name="resturant">
+        {{ $resturant->id }}
+    </x-slot>
 
-@section('main')
     <div class="block p-6 mx-auto mt-[6vh] rounded-lg shadow-zinc-900/70 shadow-xl bg-white max-w-md">
         <form method="POST" action="{{ route('resturant.update', $resturant) }}" enctype="multipart/form-data">
             @csrf
@@ -9,8 +11,7 @@
             <div class="form-group mb-3">
                 <input type="text" name="name"
                     class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    value="{{ $resturant->name }}"
-                    placeholder="Name">
+                    value="{{ $resturant->name }}" placeholder="Name">
                 @error('name')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
@@ -19,8 +20,7 @@
             <div class="form-group mb-3">
                 <input type="text" name="phone"
                     class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    value="{{ $resturant->phone }}"
-                    placeholder="Phone">
+                    value="{{ $resturant->phone }}" placeholder="Phone">
                 @error('phone')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
@@ -30,7 +30,7 @@
                     class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="Address Title">
                 @error('address_title')
-                    <p class="text-red-500 text-xs italic" >{{ $message }}</p>
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-group mb-3">
@@ -38,25 +38,24 @@
                     class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="Address">
                 @error('address')
-                    <p class="text-red-500 text-xs italic" >{{ $message }}</p>
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-group mb-3">
                 <input type="file" name="image"
-                    class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    >
+                    class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                 @error('image')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-group mb-3">
                 <div class="mb-3">
-                    <select name="category"
-                        @selected(true)
+                    <select name="category" @selected(true)
                         class="form-select mb-3 appearance-none block w-full py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                         <option selected disabled value="">Categories</option>
                         @foreach ($categories as $category)
-                            <option @selected($category->id === $resturant->categories->first()->id) value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option @selected($category->id === $resturant->categories->first()->id) value="{{ $category->id }}">{{ $category->name }}
+                            </option>
                         @endforeach
                     </select>
                     @error('category')
@@ -67,8 +66,7 @@
             <div class="form-group mb-3">
                 <input type="text" name="account_number" placeholder="Account Number"
                     class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    value="{{ $resturant->account_number }}"
-                    >
+                    value="{{ $resturant->account_number }}">
                 @error('account_number')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
@@ -100,4 +98,5 @@
             $('#lat').val(e.target.getLngLat().lat)
         });
     </script>
-@endsection
+</x-app-resturant>
+

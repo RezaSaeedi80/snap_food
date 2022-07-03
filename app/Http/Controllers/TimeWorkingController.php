@@ -13,7 +13,7 @@ class TimeWorkingController extends Controller
 
     public function __construct()
     {
-        // $this->authorizeResource(TimeWorking::class);
+        $this->authorizeResource(TimeWorking::class, 'timeWorking');
     }
 
     /**
@@ -33,6 +33,9 @@ class TimeWorkingController extends Controller
      */
     public function create(Resturant $resturant)
     {
+        if (auth()->id() !== $resturant->user_id) {
+            abort(403);
+        }
         return view('seller.Resturant.SetWorkingTime', compact('resturant'));
     }
 
@@ -63,10 +66,10 @@ class TimeWorkingController extends Controller
      * @param  \App\Models\TimeWorking  $timeWorking
      * @return \Illuminate\Http\Response
      */
-    public function show(Resturant $resturant, TimeWorking $time)
+    public function show(Resturant $resturant, TimeWorking $timeWorking)
     {
-        $time_working = $time;
-        return view('seller.Resturant.ShowWorkingTime', compact('time_working'));
+        $time_working = $timeWorking;
+        return view('seller.Resturant.ShowWorkingTime', compact('time_working', 'resturant'));
     }
 
     /**
@@ -75,9 +78,9 @@ class TimeWorkingController extends Controller
      * @param  \App\Models\TimeWorking  $timeWorking
      * @return \Illuminate\Http\Response
      */
-    public function edit(Resturant $resturant , TimeWorking $time)
+    public function edit(Resturant $resturant , TimeWorking $timeWorking)
     {
-        return view('seller.Resturant.editeWorkingTime', compact('resturant', 'time'));
+        return view('seller.Resturant.editeWorkingTime', compact('resturant', 'timeWorking'));
     }
 
     /**
@@ -87,9 +90,9 @@ class TimeWorkingController extends Controller
      * @param  \App\Models\TimeWorking  $timeWorking
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTimeWorkingRequest $request, Resturant $resturant , TimeWorking $time)
+    public function update(UpdateTimeWorkingRequest $request, Resturant $resturant , TimeWorking $timeWorking)
     {
-        $time->update([
+        $timeWorking->update([
             'resturant_id' => $resturant->id,
             'saturday' => $request->saturday_start . '-' . $request->saturday_end,
             'sunday' => $request->sunday_start . '-' . $request->sunday_end,
@@ -99,7 +102,7 @@ class TimeWorkingController extends Controller
             'thursday' => $request->thursday_start . '-' . $request->thursday_end,
             'friday' => $request->friday_start . '-' . $request->friday_end,
         ]);
-        return redirect()->route('time.show', [$resturant, $time]);
+        return redirect()->route('timeWorking.show', [$resturant, $timeWorking]);
     }
 
     /**

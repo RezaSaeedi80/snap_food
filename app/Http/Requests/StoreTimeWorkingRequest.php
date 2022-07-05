@@ -36,10 +36,10 @@ class StoreTimeWorkingRequest extends FormRequest
         ];
     }
 
-    // public function messages()
-    // {
-    //     return [
-    //         'resturant_id.required' => ''
-    //     ];
-    // }
+    public function messages()
+    {
+        return [
+            'resturant_id.unique' => 'Working hours have already been registered for this restaurant.'
+        ];
+    }
 }

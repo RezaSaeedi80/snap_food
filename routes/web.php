@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ResturantController;
 use App\Http\Controllers\TimeWorkingController;
 use App\Models\Category;
@@ -10,6 +11,7 @@ use App\Models\Resturant;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Contracts\Role;
+use Spatie\Permission\Models\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,9 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware('admin')->group(function () {
         Route::resource('/offer', OfferController::class);
         Route::resource('/category', CategoryController::class);
+        Route::prefix('permission/')->group(function () {
+            Route::get('sellers', [PermissionController::class, 'sellers']);
+        });
     });
 
     //seller routes

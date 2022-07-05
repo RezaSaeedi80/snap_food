@@ -107,7 +107,7 @@ class ResturantController extends Controller
      */
     public function show(Resturant $resturant)
     {
-        return view('seller.Food.Food', compact('resturant'));
+        return view('seller.Resturant.ShowResturant', compact('resturant'));
     }
 
     /**

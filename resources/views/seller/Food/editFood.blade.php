@@ -4,11 +4,13 @@
         {{ $resturant->id }}
     </x-slot>
 
-    <div class="relative w-[700px] h-[500px] mx-auto mt-[12vh] bg-white rounded-lg">
-        <div class="absolute top-[-60px] left-[-60px] w-fit rounded-full">
+    <div class= "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+     w-[700px] h-[500px] bg-white rounded-lg">
+        {{-- <div class="absolute top-[-60px] left-[-60px] w-fit rounded-full">
             <img src="{{ asset($food->image->path) }}" alt="" class="w-[180px] rounded-full">
-        </div>
-        <form class="w-[400px] mx-auto pt-[10vh]" method="POST" action="{{ route('food.update', [$resturant, $food]) }}"
+        </div> --}}
+        <form class="w-[400px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+        " method="POST" action="{{ route('food.update', [$resturant, $food]) }}"
             enctype="multipart/form-data">
             @csrf
             @method('PUT')

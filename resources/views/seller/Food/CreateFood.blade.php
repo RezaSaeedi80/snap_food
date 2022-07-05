@@ -4,7 +4,8 @@
         {{ $resturant->id }}
     </x-slot>
 
-    <div class="block p-6 mx-auto mt-[7vh] rounded-lg shadow-zinc-900/70 shadow-xl bg-white max-w-md">
+    <div class="block p-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+    rounded-lg shadow-zinc-900/70 shadow-xl bg-white max-w-md">
         <form method="POST" action="{{ route('food.store', $resturant) }}">
             @csrf
             <div class="form-group mb-4">

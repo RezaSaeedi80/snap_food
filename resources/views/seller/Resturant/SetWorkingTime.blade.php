@@ -4,14 +4,14 @@
         {{ $resturant->id }}
     </x-slot>
 
-    <div class="bg-white mx-auto mt-[20vh] w-[800px] p-3 rounded-lg">
+    <div class="bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] p-3 rounded-lg">
 
         <form action="{{ route('timeWorking.store', $resturant) }}" method="POST"
             class="bg-white w-full flex flex-col gap-4">
             @csrf
             <input type="hidden" name="resturant_id" value="{{ $resturant->id }}">
             @error('resturant_id')
-                <p class="px-4 text-red-500 text-xs italic">{{ $message }}</p>
+                <p class="text-center px-4 text-red-500 text-[12px] italic">{{ $message }}</p>
             @enderror
             <div class="flex flex-col gap-2">
                 <div class="flex justify-between items-center">

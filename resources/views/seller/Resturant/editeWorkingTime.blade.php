@@ -4,7 +4,7 @@
         {{ $resturant->id }}
     </x-slot>
 
-    <div class="bg-white mx-auto mt-[16vh] w-[800px] p-3 rounded-lg">
+    <div class="bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] p-3 rounded-lg">
 
         <form action="{{ route('timeWorking.update', [$resturant, $timeWorking]) }}" method="POST"
             class="bg-white w-full flex flex-col gap-4">

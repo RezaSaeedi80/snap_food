@@ -6,7 +6,7 @@
     </x-slot>
 
 
-    <div class="block p-6 mx-auto mt-[6vh] rounded-lg shadow-zinc-900/70 shadow-xl bg-white max-w-md">
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-8 rounded-lg shadow-zinc-900/70 shadow-xl bg-white w-[500px]">
         <form class="overflow-auto" method="POST" action="{{ route('resturant.store') }}">
             @csrf
             <div class="form-group mb-3">

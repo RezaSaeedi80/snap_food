@@ -5,7 +5,8 @@
     </x-slot>
 
     <!--Container-->
-    <div class="container w-full md:w-4/5 xl:w-3/5  mx-auto mt-[4vh]">
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+    container w-full md:w-4/5 xl:w-3/5  mx-auto mt-[4vh]">
         <!--Card-->
         <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
 

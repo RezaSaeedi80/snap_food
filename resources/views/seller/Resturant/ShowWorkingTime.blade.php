@@ -4,7 +4,7 @@
         {{ $resturant->id }}
     </x-slot>
 
-    <div class="flex flex-col gap-5 w-[500px] mx-auto mt-[15vh] bg-white rounded-lg">
+    <div class="flex flex-col gap-5 w-[700px] mx-auto mt-[15vh] bg-white rounded-lg">
         <div class="text-center">
             <span>You can <a href="{{ route('timeWorking.edit', [$time_working->resturant->id, $time_working]) }}" class="text-blue-400 hover:text-blue-600 underline">edit</a> your working time</span>
         </div>

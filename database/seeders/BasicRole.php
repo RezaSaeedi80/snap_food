@@ -20,9 +20,9 @@ class BasicRole extends Seeder
         $seller = Role::create(['name' => 'seller']);
         $buyer = Role::create(['name' => 'buyer']);
 
+        $admin->givePermissionTo('add offer');
+
         // $create_resturant = Permission::create(['name' => 'create resturant']);
-        $add_offer = Permission::create(['name' => 'add offer']);
-        $admin->givePermissionTo($add_offer);
         // $set_working_time = Permission::create(['name' => 'set working time']);
         // $edit_working_time = Permission::create(['name' => 'edit working time']);
 

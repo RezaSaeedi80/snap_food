@@ -13,9 +13,8 @@ class UpdateOfferRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return (auth()->user()->hasRole('admin') || auth()->id() === $this->route('offer')->user_id);
     }
-
     /**
      * Get the validation rules that apply to the request.
      *

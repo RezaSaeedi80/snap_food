@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\OfferMiddleware;
 use App\Http\Middleware\SellerMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => AdminMiddleware::class,
         'seller' => SellerMiddleware::class,
+        'can add offer' => OfferMiddleware::class,
     ];
 }

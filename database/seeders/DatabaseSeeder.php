@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             FoodSeeder::class,
+            Permision::class,
             BasicRole::class,
-            Permision::class
         ]);
         $admin = \App\Models\User::factory()->create([
             'name' => 'Reza',

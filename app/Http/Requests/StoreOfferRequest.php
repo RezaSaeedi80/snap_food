@@ -13,7 +13,7 @@ class StoreOfferRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return ($this->user()->id === auth()->id() && auth()->user()->hasPermissionTo('add offer'));
     }
 
     /**
@@ -24,7 +24,7 @@ class StoreOfferRequest extends FormRequest
     public function rules()
     {
         return [
-            
+
         ];
     }
 }

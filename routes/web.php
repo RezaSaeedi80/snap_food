@@ -31,13 +31,14 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
 
+    Route::resource('/offer', OfferController::class)->middleware('can add offer');
     // admin routes
     Route::middleware('admin')->group(function () {
-        Route::resource('/offer', OfferController::class);
         Route::resource('/category', CategoryController::class);
-        Route::prefix('permission/')->group(function () {
-            Route::get('sellers', [PermissionController::class, 'sellers']);
-        });
+
+        Route::get('permission/sellers', [PermissionController::class, 'sellers'])->name('permission.show');
+        Route::post('permission/{user}/add', [PermissionController::class, 'addPermission'])->name('permission.add');
+        Route::post('permission/{user}/revoke', [PermissionController::class, 'revokePermission'])->name('permission.revoke');
     });
 
     //seller routes
@@ -62,4 +63,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

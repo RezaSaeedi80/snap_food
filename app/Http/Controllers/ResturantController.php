@@ -78,6 +78,7 @@ class ResturantController extends Controller
      */
     public function store(StoreResturantRequest $request)
     {
+        
         $category = Category::find($request->category);
         $resturant = Resturant::create([
             'name' => $request->name,

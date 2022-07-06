@@ -17,5 +17,6 @@ class Permision extends Seeder
     public function run()
     {
         Permission::create(['name' => 'show working time']);
+        Permission::create(['name' => 'add offer']);
     }
 }

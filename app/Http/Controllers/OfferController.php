@@ -40,17 +40,20 @@ class OfferController extends Controller
     public function store(StoreOfferRequest $request)
     {
         $validate = Validator::make($request->all(), [
-            'name' => 'required|unique:categories,name|min:4|max:20',
+            'name' => 'required|unique:offers,name|min:4|max:20',
             'persent' => 'required|integer|min:0|max:100',
         ]);
-
         if ($validate->fails()) {
             return response()->json([
                 'error' => $validate->errors()
             ]);
         }
 
-        Offer::create($request->validated());
+        Offer::create([
+            'name' => $request->name,
+            'persent' => $request->persent,
+            'user_id' => auth()->id()
+        ]);
         return response()->json([
             'error' => '',
             'success' => 'Category added successfully'

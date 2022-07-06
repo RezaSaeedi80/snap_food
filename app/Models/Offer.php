@@ -11,7 +11,7 @@ class Offer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'persent', 'start', 'end'
+        'name', 'persent', 'start', 'end', 'user_id'
     ];
 
     public function persent() : Attribute

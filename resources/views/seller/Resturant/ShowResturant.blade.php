@@ -4,43 +4,6 @@
         {{ $resturant->id }}
     </x-slot>
 
-    {{-- <div class="relative  w-[800px] h-[500px] mx-auto mt-[12vh] bg-white rounded-lg">
-        <div class="absolute top-[-60px] left-[-60px] w-fit rounded-full">
-            <img src="{{ asset($resturant->image->path) }}" alt="" class="w-[180px] rounded-full">
-        </div>
-        <div class="grid grid-cols-2 gap-3 mx-auto w-full px-3 pt-32 mb-10">
-            <div class="italic"> Name : {{ $resturant->name }} </div>
-            <div class="italic"> Phone : {{ $resturant->phone }} </div>
-            <div class="italic"> Account Number : {{ $resturant->account_number }} </div>
-            <div class="italic"> Address Title : {{ $resturant->addresses->first()->title }} </div>
-            <div class="italic"> Address : {{ $resturant->addresses->first()->address }} </div>
-            <div class="italic"> Latitude : {{ $resturant->addresses->first()->latitude }} </div>
-            <div class="italic"> Longitude : {{ $resturant->addresses->first()->longitude }} </div>
-
-            @can('view', $resturant->time_working)
-                <div class="italic "> times : <a class="text-blue-400 hover:text-blue-700"
-                        href="{{ route('timeWorking.show', [$resturant, $resturant->time_working]) }}"> show </a> </div>
-            @endcan
-        </div>
-
-        <div class="text-center">
-            <div class="font-[700] text-[20px] italic">Abillity</div>
-            <div class="flex flex-col gap-3">
-                <div class="flex">
-                    <a class="italic w-[50%] text-blue-500" href="{{ route('resturant.edit', $resturant) }}">Edit</a>
-                    <form class="w-[50%]" action="{{ route('resturant.destroy', $resturant) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="italic text-blue-500">
-                            delete
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-
     <div id="body" class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover">
 
 
@@ -56,8 +19,24 @@
                     <!-- Image for mobile view-->
                     <div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
                         style="background-image: url({{ asset($resturant->image->path) }})"></div>
-
-                    <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ $resturant->name }}</h1>
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <div class="flex gap-3 items-center">
+                        <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ $resturant->name }}</h1>
+                        <button onclick="openResturant(this)" class="flex items-center {{ ($resturant->is_open) ? 'hidden' : '' }}" value="{{ $resturant->id }}"
+                            id="open">
+                            <svg class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                            </svg>
+                        </button>
+                        <button onclick="closeResturant(this)" value="{{ $resturant->id }}">
+                            <svg class="h-6 w-6 text-red-500 {{ (!$resturant->is_open) ? 'hidden' : '' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                id="close">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </button>
+                    </div>
                     <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
                     <p class="pt-4 text-base font-bold flex items-center justify-center lg:justify-start"><svg
                             class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +84,8 @@
                                 <line x1="16" y1="5" x2="19" y2="8" />
                             </svg>
                         </a>
-                        <form class="w-fit pt-2" action="{{ route('resturant.destroy', $resturant) }}" method="post">
+                        <form class="w-fit pt-2" action="{{ route('resturant.destroy', $resturant) }}"
+                            method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="">
@@ -119,8 +99,9 @@
                         </form>
                         @can('view', $resturant->time_working)
                             <a href="{{ route('timeWorking.show', [$resturant, $resturant->time_working]) }}">
-                                <svg class="h-5 w-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg class="h-5 w-5 text-green-500" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
                                     <rect x="3" y="4" width="18" height="18" rx="2"
                                         ry="2" />
                                     <line x1="16" y1="2" x2="16" y2="6" />
@@ -129,6 +110,7 @@
                                 </svg>
                             </a>
                         @endcan
+
 
                     </div>
 
@@ -191,3 +173,47 @@
     </div>
 
 </x-app-resturant>
+<script>
+    openResturant = function(e) {
+        let _token = $("input[name=_token]").val();
+        let resturant_id = e.value
+
+        $.ajax({
+            url: "/resturant/" + e.value + '/open',
+            type: "PUT",
+            data: {
+                _token: _token,
+                resturant_id: e.value,
+                status: true,
+            },
+            success: function(response) {
+                console.log(response);
+                if (response['result'] == true) {
+                    $('#open').addClass('hidden');
+                    $('#close').removeClass('hidden');
+                }
+            }
+        });
+    };
+
+    closeResturant = function(e) {
+        let _token = $("input[name=_token]").val();
+        let resturant_id = e.value
+
+        $.ajax({
+            url: "/resturant/" + e.value + '/close',
+            type: "PUT",
+            data: {
+                _token: _token,
+                resturant_id: e.value,
+                status: true,
+            },
+            success: function(response) {
+                if (response['result'] == true) {
+                    $('#open').addClass('hidden');
+                    $('#close').removeClass('hidden');
+                }
+            }
+        });
+    }
+</script>

@@ -78,7 +78,7 @@ class ResturantController extends Controller
      */
     public function store(StoreResturantRequest $request)
     {
-        
+
         $category = Category::find($request->category);
         $resturant = Resturant::create([
             'name' => $request->name,
@@ -172,5 +172,15 @@ class ResturantController extends Controller
     {
         $resturant->delete();
         return redirect()->route('dashboard');
+    }
+
+    public function openResturant(Request $request, Resturant $resturant)
+    {
+        return 'open';
+    }
+
+    public function closeResturant(Request $request, Resturant $resturant)
+    {
+        return 'close';
     }
 }

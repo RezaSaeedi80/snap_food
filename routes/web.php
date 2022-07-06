@@ -51,6 +51,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/resturant/{resturant}/restore', [ResturantController::class, 'restore'])->name('resturant.restore')->withTrashed();
         Route::delete('/resturant/{resturant}/forceDelete', [ResturantController::class, 'forceDelete'])->name('resturant.forceDelete')->withTrashed();
         Route::resource('/resturant', ResturantController::class);
+        Route::put('/resturant/{resturant}/open', [ResturantController::class, 'openResturant']);
+        Route::put('/resturant/{resturant}/close', [ResturantController::class, 'closeResturant']);
     });
 
     //public

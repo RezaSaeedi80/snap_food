@@ -14,7 +14,7 @@ class UpdateResturantRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->id() === $this->route('resturant')->user_id;
     }
 
     /**

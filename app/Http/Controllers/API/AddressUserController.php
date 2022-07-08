@@ -84,6 +84,9 @@ class AddressUserController extends Controller
 
     public function setCurrentAddress(Request $request, Address $address)
     {
+        if (auth()->user()->id === $address->addressable_id) {
+            abort(403);
+        }
         foreach (auth()->user()->addresses as $key => $address_another) {
             $address_another->update(['current_address' => false]);
         }

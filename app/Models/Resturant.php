@@ -12,7 +12,7 @@ class Resturant extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 'user_id', 'phone', 'account_number', 'lng', 'lat'
+        'name', 'user_id', 'phone', 'account_number', 'lng', 'lat', 'is_open'
     ];
 
     public function categories()

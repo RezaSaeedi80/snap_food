@@ -13,7 +13,7 @@ class AddressStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user()->hasRole('buyer');
     }
 
     /**

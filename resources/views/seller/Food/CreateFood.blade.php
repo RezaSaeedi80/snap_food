@@ -4,7 +4,7 @@
         {{ $resturant->id }}
     </x-slot>
 
-    <div class="block p-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+    <div class="w-[500px] block p-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
     rounded-lg shadow-zinc-900/70 shadow-xl bg-white max-w-md">
         <form method="POST" action="{{ route('food.store', $resturant) }}">
             @csrf
@@ -39,14 +39,7 @@
                     @enderror
                 </div>
             </div>
-            <p class="text-gray-400 italic font-[500] my-2">The next two fields are optional</p>
-            <div class="form-group mb-2">
-                <input type="file" name="image"
-                    class="mb-2 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-                @error('image')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
-            </div>
+            <p class="text-gray-400 italic font-[500] my-2">The next field is optional</p>
             <div class="form-group mb-3">
                 <input type="text" name="materials" placeholder="Please separate the raw materials with a comma"
                     class="mb-3 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">

@@ -184,10 +184,8 @@
             data: {
                 _token: _token,
                 resturant_id: e.value,
-                status: true,
             },
             success: function(response) {
-                console.log(response);
                 if (response['result'] == true) {
                     $('#open').addClass('hidden');
                     $('#close').removeClass('hidden');
@@ -206,12 +204,12 @@
             data: {
                 _token: _token,
                 resturant_id: e.value,
-                status: true,
             },
             success: function(response) {
+                console.log(response);
                 if (response['result'] == true) {
-                    $('#open').addClass('hidden');
-                    $('#close').removeClass('hidden');
+                    $('#close').addClass('hidden');
+                    $('#open').removeClass('hidden');
                 }
             }
         });

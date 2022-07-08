@@ -13,7 +13,7 @@ class UpdateAddressRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user()->id === $this->route('address')->addressable_id;
     }
 
     /**

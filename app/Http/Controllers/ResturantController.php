@@ -176,11 +176,37 @@ class ResturantController extends Controller
 
     public function openResturant(Request $request, Resturant $resturant)
     {
-        return 'open';
+        try {
+            $result = $resturant->update([
+                'is_open' => true
+            ]);
+            if ($result) {
+                return response()->json([
+                    'result' => true
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'result' => false,
+            ]);
+        }
     }
 
     public function closeResturant(Request $request, Resturant $resturant)
     {
-        return 'close';
+        try {
+            $result = $resturant->update([
+                'is_open' => false
+            ]);
+            if ($result) {
+                return response()->json([
+                    'result' => true
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'result' => false,
+            ]);
+        }
     }
 }

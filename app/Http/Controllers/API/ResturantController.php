@@ -22,10 +22,10 @@ class ResturantController extends Controller
     public function resturants(Request $request)
     {
         try {
-            $resturant = Resturant::all();
+            $resturant = Resturant::query();
             if ($request->has('is_open')) {
                 $is_open = ($request->is_open == 'true') ? 1 : 0;
-                $resturant = Resturant::where('is_open', $is_open)->get();
+                $resturant = $resturant->where('is_open', $is_open);
             }
             if ($request->has('type')) {
 

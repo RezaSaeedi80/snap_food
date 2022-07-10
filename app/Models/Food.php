@@ -13,6 +13,13 @@ class Food extends Model
         'name', 'price', 'resturant_id', 'materials', 'offer_id'
     ];
 
+    public function getPriceWithOfferAttribute()
+    {
+        return ($this->offer_id !== null)
+                ? ((100 - $this->offer->persent) / 100) * $this->price
+                : $this->price;
+    }
+
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categorizable');
@@ -31,5 +38,10 @@ class Food extends Model
     public function offer()
     {
         return $this->belongsTo(Offer::class);
+    }
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
     }
 }

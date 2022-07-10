@@ -4,6 +4,10 @@ use App\Http\Controllers\API\AddressUserController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\FoodController;
 use App\Http\Controllers\API\ResturantController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartItemController;
+use App\Models\Cart;
+use App\Models\CartItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +30,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('resturants/{resturant}/foods', [FoodController::class, 'index']);
     Route::get('resturants/{resturant}', [ResturantController::class, 'resturantInfo']);
     Route::get('resturants/', [ResturantController::class, 'resturants']);
+
+    //cart
+    Route::apiResource('carts', CartController::class);
+
+    //cart_item
+    Route::apiResource('cartItems', CartItemController::class);
+
     // logout
     Route::get('logout', [AuthController::class, 'logout']);
 });

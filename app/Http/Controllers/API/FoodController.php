@@ -17,6 +17,7 @@ class FoodController extends Controller
         $categories = Category::where('type', 'food')->with([
             'foods' => fn ($query) => $query->where('resturant_id', $resturant->id)
         ])->get();
+        // return $categories;
         return [
             'categories' => CategoriesResource::collection($categories)
         ];

@@ -14,24 +14,17 @@ class FoodsResource extends JsonResource
      */
     public function toArray($request)
     {
-        if($this->offer_id !== null){
-            return [
-                'id' => $this->id,
-                'title' => $this->name,
-                'price' => $this->price,
-                'raw_material' => $this->materials,
-                'off' => [
-                    'label' => $this->offer->persent,
-                    'factor' => (100 - $this->offer->persent) / 100,
-                ],
-                'image' => $this->image->path,
-            ];
-        }
         return [
             'id' => $this->id,
             'title' => $this->name,
             'price' => $this->price,
             'raw_material' => $this->materials,
+            $this->mergeWhen($this->offer_id !== null, function () {
+                return ['off' => [
+                    'label' => $this->offer->persent,
+                    'factor' => (100 - $this->offer->persent) / 100,
+                ]];
+            }),
             'image' => $this->image->path,
         ];
     }

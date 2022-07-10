@@ -44,4 +44,9 @@ class Resturant extends Model
     {
         return $this->morphMany(Address::class, 'addressable');
     }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

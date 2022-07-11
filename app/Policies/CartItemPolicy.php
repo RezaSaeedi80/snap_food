@@ -30,7 +30,7 @@ class CartItemPolicy
      */
     public function view(User $user, CartItem $cartItem)
     {
-        //
+        return $user->id === $cartItem->cart->user_id;
     }
 
     /**
@@ -41,7 +41,7 @@ class CartItemPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->id === auth()->id();
     }
 
     /**
@@ -53,7 +53,7 @@ class CartItemPolicy
      */
     public function update(User $user, CartItem $cartItem)
     {
-        //
+        return $user->id === $cartItem->cart->user_id;
     }
 
     /**
@@ -65,7 +65,7 @@ class CartItemPolicy
      */
     public function delete(User $user, CartItem $cartItem)
     {
-        //
+        return $user->id === $cartItem->cart->user_id;
     }
 
     /**

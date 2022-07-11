@@ -16,9 +16,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();   
+            $table->id();
             $table->foreignIdFor(Resturant::class);
             $table->foreignIdFor(User::class);
+            $table->boolean('is_pay')->default(false);
             $table->timestamps();
         });
     }

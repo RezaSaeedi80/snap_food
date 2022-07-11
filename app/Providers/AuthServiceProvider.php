@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\CartItem;
 use App\Models\Food;
 use App\Models\Resturant;
 use App\Models\TimeWorking;
 use App\Models\User;
+use App\Policies\CartItemPolicy;
 use App\Policies\FoodPolicy;
 use App\Policies\ResturantPolicy;
 use App\Policies\TimeWorkingPolicy;
@@ -23,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
         Food::class => FoodPolicy::class,
         TimeWorking::class => TimeWorkingPolicy::class,
         Resturant::class => ResturantPolicy::class,
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        CartItem::class => CartItemPolicy::class
     ];
 
     /**

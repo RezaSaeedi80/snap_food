@@ -840,6 +840,18 @@ select {
 .mt-\[15vh\] {
   margin-top: 15vh;
 }
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+.mb-0 {
+  margin-bottom: 0px;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mr-3 {
+  margin-right: 0.75rem;
+}
 .mt-\[5vh\] {
   margin-top: 5vh;
 }
@@ -982,12 +994,6 @@ select {
 }
 .w-4 {
   width: 1rem;
-}
-.w-\[\] {
-  width: ;
-}
-.w-\[6\] {
-  width: 6;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1383,6 +1389,9 @@ select {
 }
 .pr-3 {
   padding-right: 0.75rem;
+}
+.pt-0 {
+  padding-top: 0px;
 }
 .pt-6 {
   padding-top: 1.5rem;

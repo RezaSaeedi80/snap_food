@@ -13,6 +13,8 @@ class Food extends Model
         'name', 'price', 'resturant_id', 'materials', 'offer_id'
     ];
 
+    protected $appends = ['price_with_offer'];
+
     public function getPriceWithOfferAttribute()
     {
         return ($this->offer_id !== null)

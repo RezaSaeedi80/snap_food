@@ -32,10 +32,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('resturants/', [ResturantController::class, 'resturants']);
 
     //cart
-    Route::apiResource('carts', CartController::class);
+    Route::apiResource('carts', CartController::class)->only([
+        'index', 'show'
+    ]);
+    Route::post('carts/{cart}/pay', [CartController::class, 'payment']);
 
     //cart_item
-    Route::apiResource('cartItems', CartItemController::class);
+    Route::apiResource('cartItems', CartItemController::class)->except(['index']);
 
     // logout
     Route::get('logout', [AuthController::class, 'logout']);

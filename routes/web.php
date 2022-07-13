@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ResturantController;
 use App\Http\Controllers\TimeWorkingController;
@@ -46,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('resturant/{resturant}/')->group(function () {
             Route::resource('food', FoodController::class);
             Route::resource('timeWorking', TimeWorkingController::class);
+            Route::resource('payment', PaymentController::class);
         });
         Route::get('/resturant/trash', [ResturantController::class, 'trashedIndex'])->name('resturant.trashed');
         Route::put('/resturant/{resturant}/restore', [ResturantController::class, 'restore'])->name('resturant.restore')->withTrashed();

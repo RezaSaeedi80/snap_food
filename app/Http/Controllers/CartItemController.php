@@ -27,8 +27,14 @@ class CartItemController extends Controller
      */
     public function store(StoreCartItemRequest $request)
     {
-        DB::transaction(function () use ($request) {
-            $food = Food::findOrFail($request->food_id);
+        $food = Food::findOrFail($request->food_id);
+        if (!$food->resturant->is_open) {
+            return response()->json([
+                'msg' => 'It is not possible to order food from this restaurant.'
+            ]);
+        }
+        DB::beginTransaction();
+        try {
             $cart = Cart::where('resturant_id', $food->resturant_id)
                 ->where('user_id', auth()->id())
                 ->where('is_pay', false)
@@ -51,7 +57,16 @@ class CartItemController extends Controller
                     'quantity' => $cartItem->quantity + $request->quantity
                 ]);
             }
-        });
+            DB::commit();
+            return response()->json([
+                'msg' => 'item added successfully.'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'msg' => 'The operation failed.'
+            ]);
+        }
     }
 
     /**
@@ -97,7 +112,7 @@ class CartItemController extends Controller
             if ($cartItem->quantity > 1) {
                 $cartItem->quantity -= 1;
                 $cartItem->save();
-            }else {
+            } else {
                 $cartItem->delete();
             }
             return response()->json([

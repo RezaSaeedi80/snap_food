@@ -48,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
             Route::resource('food', FoodController::class);
             Route::resource('timeWorking', TimeWorkingController::class);
             Route::resource('payment', PaymentController::class);
+            Route::put('payment/{payment}/status', [PaymentController::class, 'status'])->name('payment.status');
         });
         Route::get('/resturant/trash', [ResturantController::class, 'trashedIndex'])->name('resturant.trashed');
         Route::put('/resturant/{resturant}/restore', [ResturantController::class, 'restore'])->name('resturant.restore')->withTrashed();

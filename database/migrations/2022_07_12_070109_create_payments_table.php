@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Cart::class);
             $table->enum('status', ['pending', 'preparing', 'sending', 'delivered']);
-            $table->integer('totalPrice');
+            $table->float('totalPrice');
             $table->timestamps();
         });
     }

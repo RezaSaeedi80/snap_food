@@ -30,6 +30,11 @@
                         {{ __('Set Working Time') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('payment.index', $resturant)" :active="request()->routeIs('payment.index', $resturant)">
+                        {{ __('Orders') }}
+                    </x-nav-link>
+                </div>
 
             </div>
 

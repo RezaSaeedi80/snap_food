@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePaymentRequest;
 use App\Http\Requests\UpdatePaymentRequest;
 use App\Models\Payment;
+use App\Models\Resturant;
+use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
@@ -13,9 +15,12 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Resturant $resturant)
     {
-        //
+        $orders = Payment::with('cart')
+            ->whereNot('status', 'delivered')
+            ->whereHas('cart', fn ($cart) => $cart->where('resturant_id', $resturant->id))->get();
+        return view('seller.Order.Orders', compact('resturant', 'orders'));
     }
 
     /**
@@ -45,9 +50,23 @@ class PaymentController extends Controller
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function show(Payment $payment)
+    public function show(Resturant $resturant, Payment $payment)
     {
-        //
+        $payment = $payment->load('cart.cartItems');
+        return view('seller.Order.Order', compact('resturant', 'payment'));
+    }
+
+    public function status(Resturant $resturant, Payment $payment)
+    {
+        try {
+            if ($payment->status !== 'delivered') {
+                $payment->status = Payment::STATUS[array_search($payment->status, Payment::STATUS) + 1];
+                $payment->save();
+            }
+            return redirect()->back()->with('status updated successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('status updated faild');
+        }
     }
 
     /**

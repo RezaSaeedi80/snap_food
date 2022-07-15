@@ -9,6 +9,7 @@ use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class AddressUserController extends Controller
 {
@@ -84,13 +85,16 @@ class AddressUserController extends Controller
 
     public function setCurrentAddress(Request $request, Address $address)
     {
-        if (auth()->user()->id === $address->addressable_id) {
+        if (auth()->user()->id !== $address->addressable_id) {
             abort(403);
         }
         foreach (auth()->user()->addresses as $key => $address_another) {
             $address_another->update(['current_address' => false]);
         }
         if ($address->update(['current_address' => true])) {
+            if (!auth()->user()->hasPermissionTo('can buy')) {
+                auth()->user()->givePermissionTo('can buy');
+            }
             return [
                 'msg' => 'This address was selected as the current address.'
             ];

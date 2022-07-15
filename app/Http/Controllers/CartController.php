@@ -51,12 +51,18 @@ class CartController extends Controller
     {
         $this->authorize('payment', $cart);
 
+        if (!auth()->user()->hasPermissionTo('can buy')) {
+            return response()->json([
+                'msg' => 'You have not specified your address yet!'
+            ]);
+        }
+
         if ($cart->is_pay) {
             return response()->json([
                 'msg' => 'The cost of this shopping cart has already been paid.'
             ]);
         }
-        $finallPrice = $cart->with('cartItems')->first()->cartItems
+        $finallPrice = $cart->load('cartItems.food')->cartItems
             ->map(fn ($cartItem) => $cartItem->food->price_with_offer * $cartItem->quantity)
             ->sum();
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
 use App\Http\Resources\CartResource;
+use App\Jobs\StatusJob;
 use App\Models\Cart;
 use App\Models\Payment;
 use Illuminate\Support\Facades\DB;
@@ -76,6 +77,7 @@ class CartController extends Controller
                 'status' => 'pending',
                 'totalPrice' => $finallPrice,
             ]);
+            StatusJob::dispatch($payment)->delay(now()->addMinute(1));
             DB::commit();
             if ($payment) {
                 return response()->json([

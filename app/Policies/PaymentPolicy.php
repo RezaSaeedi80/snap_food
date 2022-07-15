@@ -18,7 +18,7 @@ class PaymentPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return auth()->id() === $user->id;
     }
 
     /**
@@ -30,7 +30,7 @@ class PaymentPolicy
      */
     public function view(User $user, Payment $payment)
     {
-        //
+        return $user->id === $payment->cart->resturant->user_id;
     }
 
     /**
@@ -90,5 +90,11 @@ class PaymentPolicy
     public function forceDelete(User $user, Payment $payment)
     {
         //
+    }
+
+
+    public function status(User $user, Payment $payment)
+    {
+        return $user->id === $payment->cart->resturant->user_id;
     }
 }

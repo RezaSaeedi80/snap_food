@@ -65,6 +65,7 @@ class PaymentController extends Controller
      */
     public function show(Resturant $resturant, Payment $payment)
     {
+        // dd(auth()->user()->unreadNotifications);
         $payment = $payment->load('cart.cartItems');
         return view('seller.Order.Order', compact('resturant', 'payment'));
     }

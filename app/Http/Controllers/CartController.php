@@ -8,8 +8,10 @@ use App\Http\Resources\CartResource;
 use App\Jobs\StatusJob;
 use App\Models\Cart;
 use App\Models\Payment;
+use App\Notifications\SellerNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Notification;
 
 class CartController extends Controller
 {
@@ -66,6 +68,7 @@ class CartController extends Controller
                 'totalPrice' => $finallPrice,
             ]);
             StatusJob::dispatch($payment)->delay(now()->addMinute(1));
+            Notification::send($cart->resturant->user, new SellerNotification($payment));
             DB::commit();
             if ($payment) {
                 return response()->json([

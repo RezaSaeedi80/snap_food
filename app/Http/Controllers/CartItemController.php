@@ -16,6 +16,7 @@ class CartItemController extends Controller
     public function __construct()
     {
         $this->authorizeResource(CartItem::class, 'cartItem');
+        $this->middleware('resturant_isOpen', ['only' => ['store']]);
     }
 
 
@@ -28,11 +29,6 @@ class CartItemController extends Controller
     public function store(StoreCartItemRequest $request)
     {
         $food = Food::findOrFail($request->food_id);
-        if (!$food->resturant->is_open) {
-            return response()->json([
-                'msg' => 'It is not possible to order food from this restaurant.'
-            ]);
-        }
         DB::beginTransaction();
         try {
             $cart = Cart::where('resturant_id', $food->resturant_id)

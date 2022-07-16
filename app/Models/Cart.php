@@ -13,6 +13,13 @@ class Cart extends Model
         'user_id', 'resturant_id', 'is_pay'
     ];
 
+    public function finalPrice()
+    {
+        return $this->load('cartItems.food')->cartItems
+            ->map(fn ($cartItem) => $cartItem->food->price_with_offer * $cartItem->quantity)
+            ->sum();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

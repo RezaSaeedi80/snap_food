@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\OpeningHours\OpeningHours;
+
 
 class Resturant extends Model
 {
@@ -14,6 +16,20 @@ class Resturant extends Model
     protected $fillable = [
         'name', 'user_id', 'phone', 'account_number', 'lng', 'lat', 'is_open'
     ];
+
+    public function isOpen()
+    {
+        return OpeningHours::create([
+            'monday'     => [$this->time_working->monday],
+            'tuesday'    => [$this->time_working->thusday],
+            'wednesday'  => [$this->time_working->wednesday],
+            'thursday'   => [$this->time_working->thursday],
+            'friday'     => [$this->time_working->friday],
+            'saturday'   => [$this->time_working->saturday],
+            'sunday'     => [$this->time_working->sunday],
+            'exceptions' => []
+        ]);
+    }
 
     public function categories()
     {

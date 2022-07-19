@@ -78,7 +78,6 @@ class ResturantController extends Controller
      */
     public function store(StoreResturantRequest $request)
     {
-
         $category = Category::find($request->category);
         $resturant = Resturant::create([
             'name' => $request->name,
@@ -151,11 +150,9 @@ class ResturantController extends Controller
             'latitude' => $request->lat,
             'longitude' => $request->lng
         ]);
-        $resturant->categories()->update(
-            [
-                'category_id' => $request->category
-            ]
-        );
+        $resturant->categories()->update([
+            'category_id' => $request->category
+        ]);
         $resturant->image()->update([
             'path' => 'storage/' . $file_name
         ]);

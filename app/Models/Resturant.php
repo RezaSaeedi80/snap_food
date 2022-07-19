@@ -20,13 +20,13 @@ class Resturant extends Model
     public function isOpen()
     {
         return OpeningHours::create([
-            'monday'     => [$this->time_working->monday],
-            'tuesday'    => [$this->time_working->thusday],
-            'wednesday'  => [$this->time_working->wednesday],
-            'thursday'   => [$this->time_working->thursday],
-            'friday'     => [$this->time_working->friday],
-            'saturday'   => [$this->time_working->saturday],
-            'sunday'     => [$this->time_working->sunday],
+            'monday'     => ($this->time_working->monday == '-') ? [] : [$this->time_working->monday],
+            'tuesday'    => ($this->time_working->thusday == '-') ? [] : [$this->time_working->thusday],
+            'wednesday'  => ($this->time_working->wednesday == '-') ? [] : [$this->time_working->wednesday],
+            'thursday'   => ($this->time_working->thursday == '-') ? [] : [$this->time_working->thursday],
+            'friday'     => ($this->time_working->friday == '-') ? [] : [$this->time_working->friday],
+            'saturday'   => ($this->time_working->saturday == '-') ? [] : [$this->time_working->saturday],
+            'sunday'     => ($this->time_working->sunday == '-') ? [] : [$this->time_working->sunday],
             'exceptions' => []
         ]);
     }

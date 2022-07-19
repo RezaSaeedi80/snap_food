@@ -9,6 +9,7 @@ use App\Models\Food;
 use App\Models\Offer;
 use App\Models\Resturant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 use function PHPSTORM_META\type;
@@ -18,6 +19,7 @@ class FoodController extends Controller
     public function __construct()
     {
         $this->authorizeResource(Food::class);
+        $this->middleware('food_store', ['only' => ['store']]);
     }
 
 
@@ -57,17 +59,24 @@ class FoodController extends Controller
      */
     public function store(StoreFoodRequest $request, Resturant $resturant)
     {
-        $category = Category::find($request->category);
-        $food = Food::create([
-            'name' => $request->name,
-            'price' => $request->price,
-            'materials' => $request->materials,
-            'resturant_id' => $resturant->id
-        ]);
-        $food->categories()->save($category);
-        $food->image()->create([
-            'path' => 'Default/default.jpg'
-        ]);
+        DB::beginTransaction();
+        try {
+            $category = Category::find($request->category);
+            $food = Food::create([
+                'name' => $request->name,
+                'price' => $request->price,
+                'materials' => $request->materials,
+                'resturant_id' => $resturant->id
+            ]);
+            $food->categories()->save($category);
+            $food->image()->create([
+                'path' => 'Default/default.jpg'
+            ]);
+            DB::commit();
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+        }
         return redirect()->route('food.index', $resturant);
     }
 

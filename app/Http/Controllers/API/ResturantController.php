@@ -37,12 +37,13 @@ class ResturantController extends Controller
                 $resturant = Resturant::where('is_open', $is_open)->get()
                 ->filter(fn($resturant) => $resturant->categories()->first()->name === $request->type);
             }
+            $resturant = $resturant->get();
             return response()->json([
                 'data' => AllResturantResource::collection($resturant),
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
-                'error' => $th
+                'error' => $th->getMessage()
             ]);
         }
     }

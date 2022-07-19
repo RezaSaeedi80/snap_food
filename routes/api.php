@@ -6,6 +6,7 @@ use App\Http\Controllers\API\FoodController;
 use App\Http\Controllers\API\ResturantController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\CommentController;
 use App\Models\Cart;
 use App\Models\CartItem;
 use Illuminate\Http\Request;
@@ -39,6 +40,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //cart_item
     Route::apiResource('cartItems', CartItemController::class)->except(['index']);
+
+    //comment
+    Route::apiResource('comments', CommentController::class);
 
     // logout
     Route::get('logout', [AuthController::class, 'logout']);

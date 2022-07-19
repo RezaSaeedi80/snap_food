@@ -3,10 +3,13 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\CartPaidMiddleware;
+use App\Http\Middleware\FoodStoreMiddleware;
 use App\Http\Middleware\OfferMiddleware;
 use App\Http\Middleware\PaymentMiddleware;
 use App\Http\Middleware\ResturantIsOpenMiddleware;
 use App\Http\Middleware\SellerMiddleware;
+use App\Http\Middleware\StoreCommentMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -73,5 +76,7 @@ class Kernel extends HttpKernel
         'can add offer' => OfferMiddleware::class,
         'resturant_isOpen' => ResturantIsOpenMiddleware::class,
         'payment' => PaymentMiddleware::class,
+        'food_store' => FoodStoreMiddleware::class,
+        'paid_cart' => CartPaidMiddleware::class,
     ];
 }

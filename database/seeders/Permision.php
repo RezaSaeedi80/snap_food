@@ -19,5 +19,6 @@ class Permision extends Seeder
         Permission::create(['name' => 'show working time']);
         Permission::create(['name' => 'add offer']);
         Permission::create(['name' => 'can buy']);
+        Permission::create(['name' => 'create resturant']);
     }
 }

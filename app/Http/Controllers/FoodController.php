@@ -30,9 +30,6 @@ class FoodController extends Controller
      */
     public function index(Resturant $resturant)
     {
-        if (auth()->id() !== $resturant->user_id) {
-            abort(403);
-        }
         $foods = $resturant->food()->get()->load('categories');
         return view('seller.Food.ShowFoods', compact('foods', 'resturant'));
     }
@@ -44,9 +41,6 @@ class FoodController extends Controller
      */
     public function create(Resturant $resturant)
     {
-        if ($resturant->user_id !== auth()->id()) {
-            abort(403);
-        }
         $categories = Category::where('type', 'food')->get();
         return view('seller.Food.CreateFood', compact('categories', 'resturant'));
     }

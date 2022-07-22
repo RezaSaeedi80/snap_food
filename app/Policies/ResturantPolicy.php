@@ -91,4 +91,9 @@ class ResturantPolicy
     {
         return $user->id === $resturant->user_id;
     }
+
+    public function comments(User $user, Resturant $resturant)
+    {
+        return $user->id === $resturant->user_id;
+    }
 }

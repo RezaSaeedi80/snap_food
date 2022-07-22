@@ -31,6 +31,15 @@ class Resturant extends Model
         ]);
     }
 
+    public function distance($userAddress)
+    {
+        $address = $this->addresses()->first();
+        $distance = (((intval($address->latitude) - intval($userAddress->lotitude)) ** 2) +
+                    ((intval($address->longitude) - intval($userAddress->longitude)) ** 2)) ** 0.5;
+
+        return $distance;
+    }
+
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categorizable');

@@ -27,35 +27,12 @@ class PaymentController extends Controller
      */
     public function index(Resturant $resturant)
     {
-        if (auth()->id() !== $resturant->user_id) {
-            abort(403);
-        }
         $orders = Payment::with('cart')
             ->whereNot('status', 'delivered')
             ->whereHas('cart', fn ($cart) => $cart->where('resturant_id', $resturant->id))->get();
         return view('seller.Order.Orders', compact('resturant', 'orders'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePaymentRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePaymentRequest $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -65,7 +42,6 @@ class PaymentController extends Controller
      */
     public function show(Resturant $resturant, Payment $payment)
     {
-        // dd(auth()->user()->unreadNotifications);
         $payment = $payment->load('cart.cartItems');
         return view('seller.Order.Order', compact('resturant', 'payment'));
     }
@@ -86,37 +62,17 @@ class PaymentController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Payment $payment)
+    public function archives(Resturant $resturant)
     {
-        //
+        $orders = Payment::with('cart')
+            ->where('status', 'delivered')
+            ->whereHas('cart', fn ($cart) => $cart->where('resturant_id', $resturant->id))->get();
+        return view('seller.Order.Archives', compact('resturant', 'orders'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePaymentRequest  $request
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePaymentRequest $request, Payment $payment)
+    public function archive(Resturant $resturant, Payment $payment)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Payment $payment)
-    {
-        //
+        $payment = $payment->load('cart.cartItems');
+        return view('seller.Order.Archive', compact('resturant', 'payment'));
     }
 }

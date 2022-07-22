@@ -35,12 +35,17 @@
                     </div>
                 @endrole
                 @can('add offer')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('offer.index')" :active="request()->routeIs('offer.index')">
+                            {{ __('Offer') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('offer.index')" :active="request()->routeIs('offer.index')">
-                        {{ __('Offer') }}
+                    <x-nav-link :href="route('admin.comment.index')" :active="request()->routeIs('admin.comment.index')">
+                        {{ __('Comments') }}
                     </x-nav-link>
                 </div>
-            @endcan
             </div>
 
             <!-- Settings Dropdown -->

@@ -17,25 +17,12 @@ class TimeWorkingController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Resturant $resturant)
-    {
-
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create(Resturant $resturant)
     {
-        if (auth()->id() !== $resturant->user_id) {
-            abort(403);
-        }
         return view('seller.Resturant.SetWorkingTime', compact('resturant'));
     }
 
@@ -103,16 +90,5 @@ class TimeWorkingController extends Controller
             'friday' => $request->friday_start . '-' . $request->friday_end,
         ]);
         return redirect()->route('timeWorking.show', [$resturant, $timeWorking]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\TimeWorking  $timeWorking
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(TimeWorking $timeWorking)
-    {
-        //
     }
 }

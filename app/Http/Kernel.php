@@ -8,6 +8,7 @@ use App\Http\Middleware\FoodStoreMiddleware;
 use App\Http\Middleware\OfferMiddleware;
 use App\Http\Middleware\PaymentMiddleware;
 use App\Http\Middleware\ResturantIsOpenMiddleware;
+use App\Http\Middleware\ResturantSellerMiddleware;
 use App\Http\Middleware\SellerMiddleware;
 use App\Http\Middleware\StoreCommentMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -78,5 +79,6 @@ class Kernel extends HttpKernel
         'payment' => PaymentMiddleware::class,
         'food_store' => FoodStoreMiddleware::class,
         'paid_cart' => CartPaidMiddleware::class,
+        'resturant_seller' => ResturantSellerMiddleware::class,
     ];
 }

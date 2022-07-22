@@ -35,6 +35,21 @@
                         {{ __('Orders') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('payment.archives', $resturant)" :active="request()->routeIs('payment.archives', $resturant)">
+                        {{ __('Archive') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('seller.comments.index', $resturant)" :active="request()->routeIs('seller.comments.index', $resturant)">
+                        {{ __('Comment') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('seller.comments.notApproved', $resturant)" :active="request()->routeIs('seller.comments.notApproved', $resturant)">
+                        {{ __('Approve') }}
+                    </x-nav-link>
+                </div>
 
             </div>
 

@@ -21,6 +21,8 @@ class ResturantController extends Controller
 
     public function resturants(Request $request)
     {
+        // $resturant = Resturant::find(1);
+        // return $resturant->distance(auth()->user()->addresses()->where('current_address', true)->first());
         try {
             $resturant = Resturant::query();
             if ($request->has('is_open')) {

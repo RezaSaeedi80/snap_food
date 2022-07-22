@@ -21,9 +21,9 @@ return new class extends Migration
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Cart::class);
             $table->integer('parent_id')->nullable();
-            $table->float('score');
+            $table->float('score')->nullable();
             $table->text('message');
-            $table->boolean('approve')->nullable();
+            $table->boolean('is_approve')->nullable();
             $table->timestamps();
             // $table->softDeletes();
         });

@@ -23,7 +23,7 @@ class ResturantIsOpenMiddleware
                 'msg' => 'The restaurant is currently closed.'
             ]);
         }
-        if (!$food->resturant->isOpen()->isOpenAt(now())) {
+        if (!$food->resturant->time_working->isOpen()->isOpenAt(now())) {
             return response()->json([
                 'msg' => 'The time of your request is outside the working hours of this restaurant.'
             ]);

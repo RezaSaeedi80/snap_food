@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ResturantSearchRequest;
 use App\Http\Resources\AllResturantResource;
 use App\Http\Resources\ResturantResource;
+use App\Models\Address;
 use App\Models\Category;
 use App\Models\Resturant;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+use App\Models\User;
 
 class ResturantController extends Controller
 {
@@ -19,25 +25,26 @@ class ResturantController extends Controller
     }
 
 
-    public function resturants(Request $request)
+    public function resturants(ResturantSearchRequest $request)
     {
-        // $resturant = Resturant::find(1);
-        // return $resturant->distance(auth()->user()->addresses()->where('current_address', true)->first());
+        $lat = auth()->user()->addresses()->where('current_address', true)->first()->latitude;
+        $lon = auth()->user()->addresses()->where('current_address', true)->first()->longitude;
+
         try {
-            $resturant = Resturant::query();
+            $resturant = Resturant::near($lat, $lon);
             if ($request->has('is_open')) {
-                $is_open = ($request->is_open == 'true') ? 1 : 0;
-                $resturant = $resturant->where('is_open', $is_open);
+                if ($request->is_open == true) {
+                    $resturant = $resturant->open();
+                }
+                if ($request->is_open == false) {
+                    $resturant = $resturant->close();
+                }
             }
             if ($request->has('type')) {
-
-                $resturant = Resturant::all()
-                                ->filter(fn($resturant) => $resturant->categories()->first()->name === $request->type);
-            }
-            if ($request->has('is_open') && $request->has('type')) {
-                $is_open = ($request->is_open == 'true') ? 1 : 0;
-                $resturant = Resturant::where('is_open', $is_open)->get()
-                ->filter(fn($resturant) => $resturant->categories()->first()->name === $request->type);
+                $resturant = $resturant->whereHas(
+                    'categories',
+                    fn ($category) => $category->where('name', $request->type)
+                );
             }
             $resturant = $resturant->get();
             return response()->json([

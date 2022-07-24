@@ -82,24 +82,24 @@
             </div>
             <div class="flex flex-col gap-2">
                 <div class="flex justify-between items-center">
-                    <span class="italic">Thusday</span>
+                    <span class="italic">tuesday</span>
                     <div class="flex flex-col gap-1">
                         <div class="w-[600px] flex justify-between items-center text-center px-4">
                             <div class="flex gap-3 w-[48%] items-center">
                                 <label for="">Start</label>
-                                <input type="time" name="thusday_start"
-                                    value="{{ explode('-', $timeWorking->thusday)[0] }}"
+                                <input type="time" name="tuesday_start"
+                                    value="{{ explode('-', $timeWorking->tuesday)[0] }}"
                                     class="block w-full text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                             </div>
                             <div class="flex gap-3 w-[48%] items-center">
                                 <label for="">End</label>
-                                <input type="time" name="thusday_end" value="{{ explode('-', $timeWorking->thusday)[1] }}"
+                                <input type="time" name="tuesday_end" value="{{ explode('-', $timeWorking->tuesday)[1] }}"
                                     class="block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                             </div>
                         </div>
                     </div>
                 </div>
-                @error('thusday_end')
+                @error('tuesday_end')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>

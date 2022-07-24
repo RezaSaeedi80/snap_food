@@ -27,9 +27,9 @@ class WorkingTimeResturantResource extends JsonResource
                 'start' => explode('-', $this->monday)[0],
                 'end' => explode('-', $this->monday)[1],
             ] : null,
-            'thusday' => ($this->thusday !== null) ? [
-                'start' => explode('-', $this->thusday)[0],
-                'end' => explode('-', $this->thusday)[1],
+            'tuesday' => ($this->tuesday !== null) ? [
+                'start' => explode('-', $this->tuesday)[0],
+                'end' => explode('-', $this->tuesday)[1],
             ] : null,
             'wednesday' => ($this->wednesday !== null) ? [
                 'start' => explode('-', $this->wednesday)[0],

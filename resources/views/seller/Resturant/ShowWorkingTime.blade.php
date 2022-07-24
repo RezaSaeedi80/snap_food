@@ -59,13 +59,13 @@
                     </tr>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                            Thusday
+                            Tuesday
                         </th>
                         <td class="px-6 py-4">
-                            {{ explode('-', $time_working->thusday)[0] }}
+                            {{ explode('-', $time_working->tuesday)[0] }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ explode('-', $time_working->thusday)[1] }}
+                            {{ explode('-', $time_working->tuesday)[1] }}
                         </td>
                     </tr>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">

@@ -10,6 +10,7 @@ use App\Http\Controllers\ResturantController;
 use App\Http\Controllers\SellerCommentController;
 use App\Http\Controllers\TimeWorkingController;
 use App\Models\Category;
+use App\Models\Food;
 use App\Models\Resturant;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +31,6 @@ use Spatie\Permission\Models\Permission;
 Route::get('/', function () {
     return view('welcome');
 });
-
 
 Route::middleware(['auth'])->group(function () {
 

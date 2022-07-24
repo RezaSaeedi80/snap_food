@@ -111,9 +111,9 @@ class SellerCommentController extends Controller
     public function update(SellerCommentUpdateRequest $request, Resturant $resturant, Comment $comment)
     {
         try {
-            // $comment->update([
-            //     'message' => $request->message
-            // ]);
+            $comment->update([
+                'message' => $request->message
+            ]);
             if (isset($request->validator) && $request->validator->fails()) {
                 return response()->json([
                     'errors' => $request->validator->errors()->messages()

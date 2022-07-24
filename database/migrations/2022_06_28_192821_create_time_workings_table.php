@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('saturday');
             $table->string('sunday');
             $table->string('monday');
-            $table->string('thusday');
+            $table->string('tuesday');
             $table->string('wednesday');
             $table->string('thursday');
             $table->string('friday');

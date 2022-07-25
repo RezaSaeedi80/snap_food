@@ -28,10 +28,22 @@ class FoodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Resturant $resturant)
+    public function index(Resturant $resturant, Request $request)
     {
-        $foods = $resturant->food()->get()->load('categories');
-        return view('seller.Food.ShowFoods', compact('foods', 'resturant'));
+        $foods = Food::with('categories')->where('resturant_id', $resturant->id);
+        if ($request->has('category')) {
+            $foods = $foods->whereHas(
+                'categories', fn($categories) => $categories->where('categories.id', $request->category)
+            );
+        }
+        if ($request->has('search_food')) {
+            $foods = $foods->where('name', 'like', "%$request->search_food%");
+        }
+
+        $foods = $foods->paginate(8);
+
+        $categories = Category::where('type', 'food')->get();
+        return view('seller.Food.ShowFoods', compact('foods', 'resturant', 'categories'));
     }
 
     /**

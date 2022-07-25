@@ -31,6 +31,9 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <!-- flowbite -->
+    <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+
     @yield('style')
 
 </head>

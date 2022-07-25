@@ -21,6 +21,11 @@
                             {{ __('Permission') }}
                         </x-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('admin.comment.index')" :active="request()->routeIs('admin.comment.index')">
+                            {{ __('Comments') }}
+                        </x-nav-link>
+                    </div>
                 @endrole
                 @role('seller')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -41,11 +46,6 @@
                         </x-nav-link>
                     </div>
                 @endcan
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('admin.comment.index')" :active="request()->routeIs('admin.comment.index')">
-                        {{ __('Comments') }}
-                    </x-nav-link>
-                </div>
             </div>
 
             <!-- Settings Dropdown -->

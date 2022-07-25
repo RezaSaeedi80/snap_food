@@ -17,25 +17,39 @@ class SellerCommentController extends Controller
      */
     public function index(Resturant $resturant, Request $request)
     {
-        $this->authorize('comments', $resturant);
+        $resturant = $resturant->load('food');
         $comments = Comment::with('user')->whereHas(
-            'cart', fn ($cart) => $cart->where('resturant_id', $resturant->id)
+            'cart',
+            function ($cart) use ($resturant, $request) {
+                if ($request->has('food_id')) {
+                    $cart->whereHas('cartItems', fn ($cartItems) => $cartItems->where('food_id', $request->food_id));
+                } else {
+                    $cart->where('resturant_id', $resturant->id);
+                }
+            }
         )->where('parent_id', null)
-            ->where('is_approve', true)
-            ->get();
+            ->where('is_approve', true)->orderBy('created_at', 'DESC');
 
+        $comments = $comments->paginate(8);
 
         return view('seller.Comment.Comments', compact('comments', 'resturant'));
     }
 
     public function notApprovedComment(Resturant $resturant, Request $request)
     {
+        $resturant = $resturant->load('food');
         $comments = Comment::whereHas(
             'cart',
-            fn ($cart) => $cart->where('resturant_id', $resturant->id)
+            function ($cart) use ($resturant, $request) {
+                if ($request->has('food_id')) {
+                    $cart->whereHas('cartItems', fn ($cartItems) => $cartItems->where('food_id', $request->food_id));
+                } else {
+                    $cart->where('resturant_id', $resturant->id);
+                }
+            }
         )->where('parent_id', null)
             ->where('is_approve', null)
-            ->paginate(2);
+            ->paginate(8);
 
         return view('seller.Comment.NotAppovedComment', compact('resturant', 'comments'));
     }

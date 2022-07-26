@@ -22,16 +22,17 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="flex gap-3 items-center">
                         <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ $resturant->name }}</h1>
-                        <button onclick="openResturant(this)" class="flex items-center {{ ($resturant->is_open) ? 'hidden' : '' }}" value="{{ $resturant->id }}"
-                            id="open">
+                        <button onclick="openResturant(this)"
+                            class="flex items-center {{ $resturant->is_open ? 'hidden' : '' }}"
+                            value="{{ $resturant->id }}" id="open">
                             <svg class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                             </svg>
                         </button>
                         <button onclick="closeResturant(this)" value="{{ $resturant->id }}">
-                            <svg class="h-6 w-6 text-red-500 {{ (!$resturant->is_open) ? 'hidden' : '' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                id="close">
+                            <svg class="h-6 w-6 text-red-500 {{ !$resturant->is_open ? 'hidden' : '' }}" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" id="close">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                             </svg>
@@ -65,14 +66,27 @@
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                             <circle cx="12" cy="10" r="3" />
                         </svg>
-                        Latitude - {{ $resturant->addresses->first()->latitude }}
+                        Address - {{ $resturant->addresses->first()->address }}
                     </p>
                     <p class="pt-2 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
 
-                        Longitude - {{ $resturant->addresses->first()->longitude }}
+                        <svg class="h-4 w-8 text-green-700 pr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        <a href="{{ route('food.chart', $resturant) }}">Food sales results(foods)</a>
                     </p>
-
-
+                    <p class="pt-2 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
+                        <svg class="h-4 w-8 text-green-700 pr-4" width="24" height="24" viewBox="0 0 24 24"
+                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" />
+                            <path
+                                d="M10 3.2a9 9 0 1 0 10.8 10.8a1 1 0 0 0 -1 -1h-6.8a2 2 0 0 1 -2 -2v-7a.9 .9 0 0 0 -1 -.8" />
+                            <path d="M15 3.5a9 9 0 0 1 5.5 5.5h-4.5a1 1 0 0 1 -1 -1v-4.5" />
+                        </svg>
+                        <a href="{{ route('category.chart', $resturant) }}">Food sales results(categories)</a>
+                    </p>
 
                     <div class="mt-6 pb-16 lg:pb-0 w-4/5 lg:w-full mx-auto flex flex-wrap items-center gap-4">
                         <a class="" href="{{ route('resturant.edit', $resturant) }}">

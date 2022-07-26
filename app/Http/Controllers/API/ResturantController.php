@@ -37,6 +37,7 @@ class ResturantController extends Controller
                     $resturant = $resturant->open();
                 }
                 if ($request->is_open == false) {
+                    
                     $resturant = $resturant->close();
                 }
             }

@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use ConsoleTVs\Charts\Registrar as Charts;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,8 +25,11 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Charts $charts)
     {
-
+        $charts->register([
+            \App\Charts\FoodChart::class,
+            \App\Charts\FoodCategoryChart::class
+        ]);
     }
 }

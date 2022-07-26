@@ -13,13 +13,23 @@ class Food extends Model
         'name', 'price', 'resturant_id', 'materials', 'offer_id'
     ];
 
-    protected $appends = ['price_with_offer'];
+    protected $appends = ['price_with_offer', 'type', 'count_item'];
 
     public function getPriceWithOfferAttribute()
     {
         return ($this->offer_id !== null)
                 ? ((100 - $this->offer->persent) / 100) * $this->price
                 : $this->price;
+    }
+
+    public function getCountItemAttribute()
+    {
+        return $this->cartItems->sum('quantity');
+    }
+
+    public function getTypeAttribute()
+    {
+        return $this->categories->first()->name;
     }
 
     public function categories()

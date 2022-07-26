@@ -4,6 +4,41 @@
         {{ $resturant->id }}
     </x-slot>
 
+    {{-- <div id="chart" style="height: 300px;"></div>
+    <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+    <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
+    <script>
+        const chart = new Chartisan({
+            el: '#chart',
+            url: "@chart('food_chart')" + "?id="+ $('#test').val(),
+
+            hooks: new ChartisanHooks()
+                .legend()
+                .colors()
+                .tooltip()
+                .axis(false)
+                // .custom(({
+                //     data
+                // }) => ({
+                //     ...data,
+                //     series: data.series.map((serie: any) => ({
+                //         ...serie,
+                //         label: {
+                //             show: false
+                //         },
+                //     })),
+                // }))
+                .datasets([{
+                        type: 'pie',
+                        radius: ['40%', '60%']
+                    },
+                    {
+                        type: 'pie',
+                        radius: ['10%', '30%']
+                    },
+                ]),
+        });
+    </script> --}}
 
     <div class="bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div class="max-w-2xl border rounded">
@@ -135,7 +170,7 @@
                 console.log(response);
 
                 if (response['errors'] != undefined) {
-                    $('#message_error'+e.value).removeClass('hidden');
+                    $('#message_error' + e.value).removeClass('hidden');
                     $('#message_error' + e.value).text(response['errors']['message'][0]);
                 } else {
                     $('#success_' + e.value).text($('#message_' + e.value).val());
@@ -157,7 +192,7 @@
 
                 console.log(response);
                 if (response['success']) {
-                    $('#parent_'+e.value).addClass('hidden');
+                    $('#parent_' + e.value).addClass('hidden');
                 }
             }
         });

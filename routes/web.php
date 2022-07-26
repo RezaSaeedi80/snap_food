@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminCommentController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PaymentController;
@@ -74,6 +75,9 @@ Route::middleware(['auth'])->group(function () {
                 Route::put('comments/{comment}/reject', [SellerCommentController::class, 'reject'])->name('comments.reject');
                 Route::resource('comments', SellerCommentController::class);
             });
+
+            Route::get('foodChart', [ChartController::class, 'foods'])->name('food.chart');
+            Route::get('foodCategoryChart', [ChartController::class, 'category'])->name('category.chart');
         });
         Route::get('/resturant/trash', [ResturantController::class, 'trashedIndex'])->name('resturant.trashed');
         Route::put('/resturant/{resturant}/restore', [ResturantController::class, 'restore'])->name('resturant.restore')->withTrashed();

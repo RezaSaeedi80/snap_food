@@ -18,6 +18,10 @@
 - laravel migrate database
 			
 		> $ php artisan migrate:fresh --seed
+        
+- npm run
+			
+		> $ npm run dev
 
 # Prerequisites
 

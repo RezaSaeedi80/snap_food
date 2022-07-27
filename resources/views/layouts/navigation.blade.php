@@ -10,6 +10,13 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                @can('add offer')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('offer.index')" :active="request()->routeIs('offer.index')">
+                            {{ __('Offer') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
                 @role('admin')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
@@ -26,6 +33,11 @@
                             {{ __('Comments') }}
                         </x-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('banner.index')" :active="request()->routeIs('banner.index')">
+                            {{ __('Banners') }}
+                        </x-nav-link>
+                    </div>
                 @endrole
                 @role('seller')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -39,13 +51,6 @@
                         </x-nav-link>
                     </div>
                 @endrole
-                @can('add offer')
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('offer.index')" :active="request()->routeIs('offer.index')">
-                            {{ __('Offer') }}
-                        </x-nav-link>
-                    </div>
-                @endcan
             </div>
 
             <!-- Settings Dropdown -->

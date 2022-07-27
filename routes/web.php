@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminCommentController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\FoodController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ResturantController;
 use App\Http\Controllers\SellerCommentController;
 use App\Http\Controllers\TimeWorkingController;
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Food;
 use App\Models\Resturant;
@@ -32,7 +34,8 @@ use App\Models\User;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $banners = Banner::where('show', true)->get();
+    return view('welcome', compact('banners'));
 });
 
 // Route::get('test', function () {
@@ -57,6 +60,11 @@ Route::middleware(['auth'])->group(function () {
             Route::put('{comment}/approve', [AdminCommentController::class, 'approve'])->name('comment.approve');
             Route::delete('{comment}/destroy', [AdminCommentController::class, 'destroy'])->name('comment.destroy');
         });
+
+        //Banners
+        Route::put('banner/{banner}/showBanner', [BannerController::class, 'showBanner'])->name('banner.showBanner');
+        Route::put('banner/{banner}/dontShowBanner', [BannerController::class, 'dontShowBanner'])->name('banner.dontShowBanner');
+        Route::resource('banner', BannerController::class);
 
     });
 

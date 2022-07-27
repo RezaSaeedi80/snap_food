@@ -27,7 +27,9 @@
                         <a href="{{ url('/dashboard') }}"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Log in</a>
+                        <a href="{{ route('login') }}"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Log
+                            in</a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}"
@@ -40,14 +42,22 @@
             <div class="mx-auto mt-[17vh] w-[1000px] h-[500px]">
                 <!-- Implement the carousel -->
                 <div class="relative w-full rounded-lg shadow-lg shadow-zinc-900/70">
-                    <div class="slide relative">
-                        <img class="w-full h-[500px] object-cover rounded-lg"
-                            src="https://www.kindacode.com/wp-content/uploads/2022/07/flower-1.jpeg">
-                        <div class="absolute bottom-0 w-full px-5 py-3 bg-black/40 text-center text-white">Flower One
-                            Caption</div>
-                    </div>
+                    @forelse ($banners as $banner)
+                        <div class="slide relative">
+                            <img class="w-full h-[500px] object-cover rounded-lg" src="{{ asset($banner->path) }}">
+                            <div class="absolute bottom-0 w-full px-5 py-3 bg-black/40 text-center text-white">
+                                {{ $banner->caption }}</div>
+                        </div>
+                    @empty
+                        <div class="slide relative">
+                            <img class="w-full h-[500px] object-cover" src="{{ asset('Default/default.jpg') }}">
+                            <div class="absolute bottom-0 w-full px-5 py-3 bg-black/40 text-center text-white">
+                                Default
+                            </div>
+                        </div>
+                    @endforelse
 
-                    <div class="slide relative">
+                    {{-- <div class="slide relative">
                         <img class="w-full h-[500px] object-cover"
                             src="https://www.kindacode.com/wp-content/uploads/2022/07/flower-2.jpeg">
                         <div class="absolute bottom-0 w-full px-5 py-3 bg-black/40 text-center text-white">Flower Two
@@ -66,7 +76,7 @@
                         <div class="absolute bottom-0 w-full px-5 py-3 bg-black/40 text-center text-white">Flower Three
                             Caption
                         </div>
-                    </div>
+                    </div> --}}
 
 
                     <!-- The previous button -->

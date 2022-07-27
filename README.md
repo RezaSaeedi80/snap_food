@@ -3,10 +3,21 @@
 
 # Installation
 
-> $ composer install
-> $ php artisan key:generate 
-> $ php artisan migrate:fresh --seed
-> $ php artisan serve
+ - composer install
+			
+			> $ composer install
+- laravel key generate
+			
+		> $ php artisan key:generate
+
+- laravel create .env file
+
+		> $  cp .env.example .env
+
+- config database information in .env file
+- laravel migrate database
+			
+			> $ php artisan migrate:fresh --seed
 
 # Prerequisites
 

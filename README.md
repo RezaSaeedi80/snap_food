@@ -5,7 +5,7 @@
 
  - composer install
 			
-			> $ composer install
+	    > $ composer install
 - laravel key generate
 			
 		> $ php artisan key:generate
@@ -17,7 +17,7 @@
 - config database information in .env file
 - laravel migrate database
 			
-			> $ php artisan migrate:fresh --seed
+		> $ php artisan migrate:fresh --seed
 
 # Prerequisites
 

@@ -44,4 +44,9 @@ class Cart extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function foods()
+    {
+        return $this->hasManyThrough(CartItem::class, Food::class);
+    }
 }

@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Contracts\Role;
 use Spatie\Permission\Models\Permission;
+use Rap2hpoutre\FastExcel\FastExcel;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,10 @@ use Spatie\Permission\Models\Permission;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('test', function () {
+//     return (new FastExcel(User::all()))->download('file.xlsx');
+// });
 
 Route::middleware(['auth'])->group(function () {
 
@@ -61,6 +67,8 @@ Route::middleware(['auth'])->group(function () {
             Route::resource('timeWorking', TimeWorkingController::class);
 
             //payment
+            Route::get('payment/archiveSave', [PaymentController::class, 'archiveSave'])->name('save.archive');
+            Route::get('payment/orderSave', [PaymentController::class, 'orderSave'])->name('save.order');
             Route::get('payment/archives', [PaymentController::class, 'archives'])->name('payment.archives');
             Route::get('payment/{payment}/archive', [PaymentController::class, 'archive'])->name('payment.archives.show');
             Route::resource('payment', PaymentController::class)->only([

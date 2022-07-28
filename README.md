@@ -5,23 +5,23 @@
 
  - composer install
 			
-	    > $ composer install
+	    composer install
 - laravel key generate
 			
-		> $ php artisan key:generate
+		php artisan key:generate
 
 - laravel create .env file
 
-		> $  cp .env.example .env
+		cp .env.example .env
 
 - config database information in .env file
 - laravel migrate database
 			
-		> $ php artisan migrate:fresh --seed
+		php artisan migrate:fresh --seed
         
 - npm run
 			
-		> $ npm run dev
+		npm run dev
 
 # Prerequisites
 
